@@ -1,0 +1,464 @@
+aid: anywhere-real-estate
+name: Anywhere Real Estate
+kind: company
+homeMarket: United States
+tier: brokerage
+review:
+  question: >-
+    Does Anywhere Real Estate publish a reachable public developer surface, and is
+    it RESO certified?
+  answer: >-
+    Yes to the developer surface, no to RESO certification. Anywhere runs a real,
+    actively maintained developer portal at https://developers.anywhere.re/ that
+    anonymously exposes 23 named API products with overviews, requirements and OAuth
+    scopes. Every machine-readable artifact behind those products — specification,
+    Postman collection, SDK, "Get Access" — is login-gated. Anywhere consumes and
+    republishes RESO-shaped data but holds no RESO certification.
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  method: anonymous HTTP probing plus reading of the public portal pages
+
+# =====================================================================
+# THE SECTOR BLOCK: certification is not reachability
+# =====================================================================
+sectorPosture:
+  homeMarket: United States
+  valueChainPosition: >-
+    Brokerage and franchisor. Anywhere sits between the MLSs (which it consumes from)
+    and the agent/consumer (which it serves). It is not an MLS, not a portal, and not
+    a data reseller — it is a licensee of MLS data that re-exposes a normalized version
+    of that data to its own franchisees, brokerages, partners and vendors.
+
+  reso:
+    posture: >-
+      RESO consumer, not a RESO certificant. Anywhere's MLS Data Service product page
+      states verbatim that it lets you "Get listings data using canonical RESO format,
+      enriched with images (media) and open house data" and "Get listings details in
+      RESO format." The Anywhere Master Data (MDM) product page states verbatim that
+      "The Listings APIs provide listings, images, and open house data in Real Estate
+      Standards Organization (RESO) name space convention." No certification of any
+      kind is claimed anywhere on the portal.
+    certified: false
+    certificationType: none
+    dataDictionaryVersion: 'not stated — the portal never names a RESO Data Dictionary version'
+    webApiCertified: false
+    dataDictionaryCertified: false
+    directoryEvidence: >-
+      Fetched https://www.reso.org/certificates/ (HTTP 200, 2026-07-26; the page itself
+      says "Data updated 07/24/2026"). The RESO Certification Status list contains 578
+      organizations — 536 with MLS (M-prefix) UOIs, 40 Technology Company (T-prefix)
+      UOIs and 2 Commercial (C-prefix) UOIs. Case-insensitive search of the rendered
+      text for "Anywhere", "Realogy", "Coldwell", "Century 21", "Sotheby", "Corcoran",
+      "Better Homes", "Cartus" and "NRT" returned ZERO matches. The directory carries a
+      Brokerage section heading but no brokerage entries. Zillow appears (UOI T00000053,
+      Passed Current) — a portal is certified; this brokerage is not.
+    upi: >-
+      No reference to the RESO Universal Property Identifier (UPI) or Universal Parcel
+      Identifier anywhere on developers.anywhere.re. Grep across all 22 anonymously
+      readable product pages for "UPI", "Universal Property" and "Universal Parcel"
+      returned zero hits.
+    odataMetadata: >-
+      None. RESO Web API is OData, so a $metadata document would be the machine-readable
+      contract. Probed https://developers.anywhere.re/$metadata (HTTP 404) and
+      https://api.anywhere.re/mls/v1/$metadata (HTTP 401, application/json — the gateway
+      is live but rejects anonymous callers). No $metadata document is obtainable.
+    coverageCaveat: >-
+      Even for a licensed consumer, RESO coverage is partial. The Master Data product
+      page states: "Currently, the APIs provide listings for the 'AR_TMLS' source and
+      the other MLS sources that are yet to update as 'on-boarded' status, iteratively
+      in the future."
+    note: >-
+      This is the sector's central distinction made concrete in reverse. The usual case
+      is "certified but not reachable." Anywhere is the mirror image: a documented,
+      publicly browsable API catalogue with no certification at all, speaking RESO's
+      vocabulary as a private convention rather than as a certified contract.
+
+  accessGate:
+    gate: application-approval
+    gated: true
+    openData: false
+    whatADeveloperMustDo:
+      - Register a free developer account at https://developers.anywhere.re/user/register
+        and activate it by email link (or log in with an existing Anywhere ID).
+      - Accept the binding API Terms of Use & License Agreement at
+        https://developers.anywhere.re/terms-use-api-license-agreement (last updated
+        May 19, 2025). It states "In order to access APIs, you are required to register
+        and be approved for a developer account through the API Portal" and grants only
+        a "limited, non-exclusive, revocable, non-assignable, non-sublicensable license
+        to access and use (i) specific APIs approved by Anywhere and (ii) associated API
+        Data for such approved APIs."
+      - Register an application under My Apps, selecting an API product, an environment
+        and a Company/Group/Team, then wait for Anywhere review. Verbatim from the How
+        It Works page - "Your request for Sandbox access will undergo Anywhere approval
+        process which may take up to 2 business days."
+      - Repeat the approval for production - "Your request for Production access will
+        undergo Anywhere approval process which may take up to 2 business days."
+      - Comply with each product's Requirements section, which for every product means
+        an Anywhere-issued API Key plus Okta client credentials plus a product-specific
+        Okta scope.
+    visibilityTiers: >-
+      The portal defines three product labels verbatim - "Public: The API product is
+      available to all users. Private: The API product is available to only Anywhere
+      internal users. Partner: The API product is available to Anywhere internal users
+      and select Anywhere partners." 22 of the 23 catalogued products are labelled
+      Public; Anywhere Leads Engine is labelled Partner and its product page returns
+      HTTP 403 to anonymous visitors.
+    intendedAudience: >-
+      The Terms state the APIs "are solely intended for use by developers requiring
+      access to Anywhere APIs, and not for individual consumers." Product pages list the
+      "Usable by" audience as the Anywhere brands (Better Homes and Gardens Real Estate,
+      CENTURY 21, Coldwell Banker, Coldwell Banker Commercial, Corcoran Group, ERA,
+      Sotheby's International Realty) plus "All Anywhere partners/vendors."
+    notMembershipRequired: >-
+      Recorded deliberately - this gate is NOT MLS membership and NOT an IDX/VOW licence.
+      No IDX, VOW, MLS Grid, Bridge, Trestle or Spark reference appears anywhere on the
+      portal. The gate is Anywhere's own commercial/franchise relationship plus a
+      click-through API licence and a human approval step.
+    openDataFinding: >-
+      No open data. There is no unlicensed, publicly callable dataset. The only
+      anonymously callable JSON on any Anywhere host is the WordPress REST API of the
+      corporate marketing site (https://anywhere.re/wp-json/, HTTP 200,
+      application/json) — a CMS surface, not a real estate data product, and deliberately
+      NOT listed as an API in apis.yml.
+
+  authModel:
+    scheme: OAuth 2.0 client credentials (Okta) plus a separate Anywhere-issued API key
+    documentation: https://developers.anywhere.re/docs/realogy-oauth
+    identityProvider: Okta (realogy.okta.com production, realogy.oktapreview.com non-production)
+    tokenEndpointProduction: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/token
+    tokenEndpointNonProduction: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/v1/token
+    grantType: client_credentials
+    headers: >-
+      Two credentials are required on every call - "apiKey: {Api Key assigned to your
+      application}" and "Authorization: Bearer {access_token}".
+    openidConfigurationFetched: true
+    scopesAreAppIdUris: >-
+      Anywhere's scopes are Azure/Okta-style App ID URIs, and the OAuth guide warns
+      explicitly "The App ID URI is a unique identifier for the REST API. It is not where
+      the REST API is hosted." They must therefore NEVER be treated as base URLs.
+    documentedScopes:
+      - https://btt.realogyfg.com/dashapi
+      - https://btt.realogyfg.com/datasyncapi
+      - https://btt.realogyfg.com/corporatestaffapi
+      - https://btt.realogyfg.com/transactionsapi
+      - https://btt.realogyfg.com/dynamicsearchapi
+      - https://btt.realogyfg.com/propertypromotionsapi
+      - https://btt.realogyfg.com/analyticsapi
+      - https://btt.realogyfg.com/securityapi
+      - https://dataservices.eap.com/eaplistingsapi
+      - https://api.realogy.com/leadrouterapi
+      - https://api.realogy.com/iprospectapi
+      - https://api.realogy.com/c2shinningcapi
+      - https://api.realogy.com/referralleadsapi
+      - https://api.realogy.com/reloauthorizationapi
+      - https://api.realogy.com/realvitalizevendorsapi
+      - https://api.realogy.com/settlementcompanycapabilityapi
+      - https://api.anywhere.re/referralpartnerintegration
+      - https://eps.nrtllc.com/securityapi
+      - apim-listingextensions
+    operationalRule: >-
+      Verbatim from the OAuth guide - "Applications who fail to cache their access tokens
+      and request new access tokens for every REST API call they make will have their
+      access immediately suspended."
+
+# =====================================================================
+# WHAT WAS PROBED — every URL, with HTTP status, on 2026-07-26
+# =====================================================================
+probes:
+  date: '2026-07-26'
+  userAgent: desktop Chrome UA, no credentials, no cookies
+  results:
+    - url: https://www.anywhere.re/
+      status: 200
+      note: redirects to https://anywhere.re/ — WordPress corporate site
+    - url: https://anywhere.re/
+      status: 200
+      note: >-
+        Home page banner states "As of January 9, 2026, Anywhere Real Estate and Compass
+        officially come together as Compass International Holdings."
+    - url: https://developer.anywhere.re/
+      status: 200
+      note: redirects to https://developers.anywhere.re/
+    - url: https://developers.anywhere.re/
+      status: 200
+      note: >-
+        THE developer portal. Drupal 8 with the realogy_modern theme, an Apigee-style
+        developer portal. Claims "40+ API products"; the public catalogue lists 23.
+    - url: https://api.anywhere.re/
+      status: 404
+      contentType: application/json
+      note: live API gateway host, JSON error body
+    - url: https://api.anywhere.re/mls
+      status: 401
+      contentType: application/json
+      note: gateway is live and enforcing auth
+    - url: https://api.anywhere.re/mls/v1
+      status: 401
+      contentType: application/json
+    - url: https://api.realogy.com/
+      status: 404
+      contentType: application/json
+      note: second live gateway host referenced throughout the OAuth guide
+    - url: https://api.realogy.com/1.0/dash/batches/1
+      status: 404
+      contentType: application/json
+      note: >-
+        the OAuth guide documents "Example: Dash API
+        https://api.realogy.com/1.0/dash/batches/{batchId}" — the only per-product base
+        URL published anonymously anywhere on the portal
+    - url: https://btt.realogyfg.com/
+      status: 000
+      note: does not resolve/connect — consistent with the guide's warning that scope App ID URIs are not hosts
+    - url: https://docs.anywhere.re/
+      status: 000
+      note: does not resolve
+    - url: https://developers.anywhere.re/api-products
+      status: 200
+      note: public catalogue of 22 products (23rd, Anywhere Leads Engine, is surfaced on the home page)
+    - url: https://developers.anywhere.re/api-product/mls-data-service/summary
+      status: 200
+    - url: https://developers.anywhere.re/api-product/anywhere-leads-engine/summary
+      status: 403
+      note: Partner-visibility product, blocked to anonymous visitors
+    - url: https://developers.anywhere.re/api-product/mls-data-service/specification
+      status: 200
+      note: >-
+        302-equivalent redirect to
+        https://developers.anywhere.re/Login?destination=api-product/mls-data-service/specification
+        — THE SPEC IS LOGIN-GATED
+    - url: https://developers.anywhere.re/api-product/mls-data-service/essential-reads
+      status: 200
+      note: redirects to /Login — Postman collections live here and are login-gated
+    - url: https://developers.anywhere.re/api-product/mls-data-service/sdk
+      status: 200
+      note: redirects to /Login — SDK page is login-gated
+    - url: https://developers.anywhere.re/api-product/mls-data-service/getaccess
+      status: 200
+      note: redirects to /Login
+    - url: https://developers.anywhere.re/api-product/mls-data-service/product-version-history
+      status: 200
+      note: anonymously readable
+    - url: https://developers.anywhere.re/myapps
+      status: 200
+      note: redirects to /Login
+    - url: https://developers.anywhere.re/docs/realogy-oauth
+      status: 200
+      note: full anonymous OAuth 2.0 client-credentials guide
+    - url: https://developers.anywhere.re/docs/how-it-works
+      status: 200
+      note: full anonymous onboarding/approval description
+    - url: https://developers.anywhere.re/terms-use-api-license-agreement
+      status: 200
+      note: API Terms of Use & License Agreement, last updated May 19, 2025
+    - url: https://developers.anywhere.re/user/register
+      status: 200
+    - url: https://developers.anywhere.re/status
+      status: 200
+      note: API status page with incident email subscription; no machine-readable status feed found
+    - url: https://developers.anywhere.re/release-notes
+      status: 200
+      note: >-
+        ~190 releases listed; latest Developer Portal 1.3.35 on March 24, 2026. Entries
+        repeatedly reference "Open API Spec change in production" — Anywhere maintains
+        OpenAPI definitions internally, but none are published anonymously.
+    - url: https://developers.anywhere.re/sitemap.xml
+      status: 200
+      note: 57 URLs; enumerated to confirm no additional public spec or docs paths exist
+    - url: https://developers.anywhere.re/robots.txt
+      status: 200
+      note: stock Drupal robots.txt
+    - url: https://developers.anywhere.re/jsonapi
+      status: 401
+      contentType: application/vnd.api+json
+      note: Drupal JSON:API is enabled but requires authentication
+    - url: https://developers.anywhere.re/confluent-kafka-operational-dashboard
+      status: 403
+      note: >-
+        a Confluent Kafka operational dashboard page exists in the sitemap but is blocked;
+        the only hint of an event-streaming surface. No AsyncAPI, no public broker.
+    - url: https://developers.anywhere.re/openapi.json
+      status: 404
+    - url: https://developers.anywhere.re/swagger.json
+      status: 404
+    - url: https://developers.anywhere.re/$metadata
+      status: 404
+    - url: https://developers.anywhere.re/.well-known/openid-configuration
+      status: 404
+    - url: https://anywhere.re/developers
+      status: 404
+    - url: https://anywhere.re/api
+      status: 404
+    - url: https://anywhere.re/openapi.json
+      status: 404
+    - url: https://anywhere.re/swagger.json
+      status: 404
+    - url: https://anywhere.re/api-docs
+      status: 404
+    - url: https://anywhere.re/.well-known/security.txt
+      status: 404
+      note: no security.txt — a finding
+    - url: https://anywhere.re/wp-json/
+      status: 200
+      contentType: application/json
+      note: WordPress REST API of the marketing site — incidental CMS surface, not a product API
+    - url: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/oauth-authorization-server
+      status: 200
+      note: HARVESTED VERBATIM to authentication/anywhere-real-estate-okta-prod-authorization-server.json
+    - url: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/openid-configuration
+      status: 200
+      note: HARVESTED VERBATIM to authentication/anywhere-real-estate-okta-prod-openid-configuration.json
+    - url: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/.well-known/oauth-authorization-server
+      status: 200
+      note: HARVESTED VERBATIM to authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+    - url: https://www.reso.org/certification/
+      status: 200
+    - url: https://www.reso.org/certificates/
+      status: 200
+      note: RESO Certification Status directory — searched, no Anywhere/Realogy/brand entry
+    - url: https://certification.reso.org/
+      status: 400
+    - url: https://api.github.com/orgs/AnywhereRealEstate
+      status: 200
+      note: >-
+        github.com/Anywhererealestate — 5 public repos, all the "bspk" design system
+        (bspk-ui, bspk-styles, bspk-icons, bspk-demo, bspk-ui-ngx). No API specs.
+    - url: https://api.github.com/orgs/realogy
+      status: 200
+      note: legacy org, 0 public repos
+    - url: https://ir.anywhere.re/
+      status: 403
+      note: investor relations host blocks anonymous scripted fetch
+
+# =====================================================================
+# ARTIFACT FINDINGS
+# =====================================================================
+findings:
+  developerPortal: https://developers.anywhere.re/
+  developerPortalConfirmed: true
+  developerPortalIsSelfServe: false
+  apiProductsListedPublicly: 23
+  openapiHarvested: false
+  specsCount: 0
+  downloadableContracts: >-
+    NONE obtainable anonymously. OpenAPI definitions provably exist — the release notes
+    repeatedly describe "Referralleads Open API Spec change in production" and
+    "Referralsservice Open API Spec change in production" — but every /specification
+    path redirects to /Login. No /openapi.json, /swagger.json, /api-docs or $metadata is
+    served on any Anywhere host.
+  harvestedArtifacts:
+    - path: authentication/anywhere-real-estate-okta-prod-authorization-server.json
+      type: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+      sourceURL: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/oauth-authorization-server
+      httpStatus: 200
+      fetched: '2026-07-26'
+      parses: true
+    - path: authentication/anywhere-real-estate-okta-prod-openid-configuration.json
+      type: OpenID Connect Discovery document
+      sourceURL: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/openid-configuration
+      httpStatus: 200
+      fetched: '2026-07-26'
+      parses: true
+    - path: authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+      type: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+      sourceURL: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/.well-known/oauth-authorization-server
+      httpStatus: 200
+      fetched: '2026-07-26'
+      parses: true
+  webhooks: >-
+    No webhook documentation found. Several products advertise "real-time" delivery and
+    an events posture (MLS Data Service "receive MLS events in real-time"; a component
+    API named listingsdirect-event-processing "used for ingesting and sending messages to
+    and from the DOT system"), and a Confluent Kafka operational dashboard page exists in
+    the sitemap at HTTP 403. But no anonymous webhook reference, no AsyncAPI, no public
+    broker endpoint.
+  sdks: >-
+    Each product page carries an SDK tab, but it is login-gated
+    (/api-product/<slug>/sdk redirects to /Login). No public SDK repositories exist on
+    either GitHub org.
+  postman: >-
+    Postman collections exist per product and are login-gated. The portal blog post
+    "Test Anywhere APIs with Postman Collection" instructs developers to "Download
+    Postman collection from the Essential Read section of API product" and to set
+    "baseUrl= Application URL which you can get from the specification page on portal"
+    — confirming base URLs are only disclosed after login.
+  graphql: none found
+  mcp: none found
+  llmsTxt: none found
+  securityTxt: none found
+  statusPage: https://developers.anywhere.re/status
+  changelog: >-
+    https://developers.anywhere.re/release-notes — public, deep and current
+    (Developer Portal 1.3.35, March 24, 2026), which is unusually strong disclosure for
+    this sector.
+  sandbox: >-
+    A production-like sandbox environment is advertised and is a documented step in the
+    onboarding flow, but it is reachable only after approval.
+
+corporate:
+  legalEntity: Anywhere Real Estate Services Group LLC (formerly Realogy Services Group LLC)
+  parentCompany: Anywhere Real Estate Inc.
+  headquarters: 175 Park Avenue, Madison, NJ 07940, United States
+  formerName: Realogy Holdings Corp.
+  ticker: 'NYSE: HOUS'
+  ownershipChange: >-
+    anywhere.re states verbatim - "As of January 9, 2026, Anywhere Real Estate and
+    Compass officially come together as Compass International Holdings." Both the
+    corporate site and the developer portal remained live and independently branded at
+    the review date; the portal footer still reads "© 2023-2025 Anywhere Real Estate."
+  brands:
+    - Better Homes and Gardens Real Estate
+    - CENTURY 21
+    - Coldwell Banker
+    - Coldwell Banker Commercial
+    - Corcoran
+    - ERA
+    - Sotheby's International Realty
+  segments:
+    - Anywhere Brands (franchising)
+    - Anywhere Advisors (brokerage)
+    - Anywhere Integrated Services (title, escrow and settlement)
+    - Anywhere Leads (referral network)
+    - Cartus (global relocation)
+
+sources:
+  - url: https://developers.anywhere.re/
+    type: Portal
+    note: portal home; "40+ API products", OAuth, sandbox, "Comprehensive Documentation"
+  - url: https://developers.anywhere.re/api-products
+    type: Documentation
+    note: source of the 22-product public catalogue; 23rd product surfaced on the portal home page
+  - url: https://developers.anywhere.re/docs/how-it-works
+    type: GettingStarted
+    note: source of the access-gate classification (register, register an app, 2-business-day approvals)
+  - url: https://developers.anywhere.re/docs/realogy-oauth
+    type: Authentication
+    note: source of the auth model, Okta endpoints, scope semantics and the one documented base URL
+  - url: https://developers.anywhere.re/terms-use-api-license-agreement
+    type: TermsOfService
+    note: source of the licence language; last updated May 19, 2025
+  - url: https://developers.anywhere.re/api-product/mls-data-service/summary
+    type: Documentation
+    note: source of the "canonical RESO format" quote
+  - url: https://developers.anywhere.re/api-product/master-data-services/summary
+    type: Documentation
+    note: source of the "RESO name space convention" quote and the AR_TMLS coverage caveat
+  - url: https://www.reso.org/certificates/
+    type: Certification
+    note: RESO Certification Status directory; 578 organizations; no Anywhere/Realogy entry
+  - url: https://anywhere.re/
+    type: Website
+    note: source of corporate identity, brands, segments and the Compass combination notice
+
+actions:
+  apisYmlCreated: true
+  apisListed: 23
+  openapiDirectoryCreated: false
+  openapiDirectoryReason: >-
+    No OpenAPI, Swagger, RAML or OData $metadata document is retrievable without a
+    portal login, so the directory would have been empty. Creating it with fabricated
+    or reconstructed content was not an option.
+  authenticationDirectoryCreated: true
+  reason: >-
+    Three real, anonymously served, JSON-parsing authorization-server metadata documents
+    were harvested verbatim and are the only machine-readable contracts Anywhere exposes
+    to the open internet.

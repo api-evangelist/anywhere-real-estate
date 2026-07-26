@@ -1,0 +1,533 @@
+aid: anywhere-real-estate
+url: https://raw.githubusercontent.com/api-evangelist/anywhere-real-estate/refs/heads/main/apis.yml
+name: Anywhere Real Estate
+kind: company
+description: 'Anywhere Real Estate Inc. (formerly Realogy Holdings Corp., NYSE: HOUS) is one of the largest
+  residential real estate services companies in the United States, headquartered at 175 Park Avenue, Madison,
+  New Jersey. It franchises and operates Better Homes and Gardens Real Estate, CENTURY 21, Coldwell Banker,
+  Coldwell Banker Commercial, Corcoran, ERA and Sotheby''s International Realty; runs the Anywhere Advisors
+  brokerage, the Anywhere Integrated Services title and settlement business, the Anywhere Leads referral
+  network and Cartus relocation. Its own home page states that as of January 9, 2026 Anywhere Real Estate
+  and Compass came together as Compass International Holdings. Unusually for a brokerage, Anywhere operates
+  a genuine Apigee-backed developer portal at developers.anywhere.re that publicly lists 23 documented
+  API products spanning MLS and listing data, marketing syndication, transactions, back office, leads,
+  agent recruiting, earnest money, title settlement, relocation and user access. Anywhere is a RESO consumer
+  rather than a RESO certificant: its MLS Data Service returns listings in "canonical RESO format" and
+  its Master Data product uses RESO name space convention, but Anywhere appears nowhere in the RESO Certification
+  Status directory. Access is licensed, not open — every specification, Postman collection and SDK page
+  redirects anonymous visitors to login, and both sandbox and production access require an Anywhere review
+  of up to two business days under a binding API Terms of Use and License Agreement.'
+accessModel:
+  pricing: enterprise
+  onboarding: approval
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Approval required (portal signup, then Anywhere approval for sandbox and again for
+    production)
+  confidence: high
+  source:
+  - https://developers.anywhere.re/docs/how-it-works
+  - https://developers.anywhere.re/terms-use-api-license-agreement
+  generated: '2026-07-26'
+  method: observed
+image: https://developers.anywhere.re/sites/default/files/anywhere_favicon.png
+tags:
+- Real Estate
+- United States
+- Property Listings
+- MLS
+- RESO
+- Brokerage
+- Franchising
+- PropTech
+- Title
+- Escrow
+- Relocation
+- Leads
+- Transactions
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis:
+- aid: anywhere-real-estate:mls-data-service
+  name: Anywhere MLS Data Service API
+  description: Endpoints for MLS listings data assembled by Anywhere's MLS Data Platform (MDP), which
+    downloads, processes and enriches listings from multiple MLS sources. Returns listings in canonical
+    RESO format enriched with media and open house data, real-time MLS events, MLS display rules and active/sold
+    listing statistics. Component APIs named on the product page are mls, mls-display-rules, mls-listings-stats,
+    mlsagent, mlsagentroster, mlsofficeroster and listingsdirect-event-processing.
+  humanURL: https://developers.anywhere.re/api-product/mls-data-service/summary
+  tags:
+  - Real Estate
+  - Listings
+  - MLS
+  - RESO
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/mls-data-service/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/mls-data-service/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:master-data-services
+  name: Anywhere Master Data (MDM) API
+  description: A bundle of APIs representing clean, curated master data for Agent, Office, Company, Staff
+    and Listings entities, plus shared address and property services. Data is normalized from Anywhere
+    and non-Anywhere (MLS) sources. The Listings APIs provide listings, images and open house data using
+    Real Estate Standards Organization (RESO) name space convention.
+  humanURL: https://developers.anywhere.re/api-product/master-data-services/summary
+  tags:
+  - Real Estate
+  - Listings
+  - MLS
+  - RESO
+  - Master Data
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/master-data-services/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/master-data-services/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:listing-syndication
+  name: Anywhere Listing Syndication API
+  description: Synchronize marketing data for all Anywhere franchise brands and the brokerage group to
+    an external system. Marketing data includes Company, Office, Agent, Team, Listings and New Development
+    information, read in real time for syndicating marketing information to affiliate websites and generating
+    listing and agent advertising.
+  humanURL: https://developers.anywhere.re/api-product/listing-syndication/summary
+  tags:
+  - Real Estate
+  - Listings
+  - Syndication
+  - Marketing
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/listing-syndication/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/listing-syndication/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:dynamic-search
+  name: Anywhere Dynamic Search API
+  description: Real-time search over Anywhere listing details for applications that do not maintain a
+    local data store. Documented as short-response-time and typically used for mobile applications.
+  humanURL: https://developers.anywhere.re/api-product/dynamic-search/summary
+  tags:
+  - Real Estate
+  - Listings
+  - Search
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/dynamic-search/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/dynamic-search/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:listingextensions
+  name: Anywhere Listing Extensions API
+  description: A bundle of APIs for listings submitted through external and internal products, enhancing
+    property listings with SMS Property ID, RealVitalize ID and Dash attribute management.
+  humanURL: https://developers.anywhere.re/api-product/listingextensions/summary
+  tags:
+  - Real Estate
+  - Listings
+  - Franchise
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/listingextensions/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/listingextensions/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:property-promotions
+  name: Anywhere Listings Promotions API
+  description: Synchronize promotion data from Anywhere, covering channels, publication lists in each
+    channel, nominated listings and listings flagged in each publication list. Used to create and update
+    channels and publication lists and to flag nominated listings to publication channels.
+  humanURL: https://developers.anywhere.re/api-product/property-promotions/summary
+  tags:
+  - Real Estate
+  - Listings
+  - Promotions
+  - Marketing
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/property-promotions/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/property-promotions/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:realogy-listings-metrics
+  name: Anywhere Listing Metric API
+  description: Listing management metric information for Anywhere franchise brands, including video views,
+    virtual tour views and listing views, available as soon as data is received from Anywhere source systems.
+  humanURL: https://developers.anywhere.re/api-product/realogy-listings-metrics/summary
+  tags:
+  - Real Estate
+  - Listings
+  - Analytics
+  - Metrics
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/realogy-listings-metrics/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/realogy-listings-metrics/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:broker-agent-tools
+  name: Anywhere Marketing - Franchise API
+  description: Synchronize marketing data for all Anywhere franchise brands and brokerages, including
+    Corporate Staff, Company, Office, Agent, Team, Listings and New Developments information.
+  humanURL: https://developers.anywhere.re/api-product/broker-agent-tools/summary
+  tags:
+  - Real Estate
+  - Marketing
+  - Listings
+  - Back Office
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/broker-agent-tools/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/broker-agent-tools/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:broker-agent-tools-plus
+  name: Anywhere Marketing and Transactions API
+  description: Synchronize Anywhere marketing data together with franchise brokerage production (transaction)
+    details. Marketing detail includes Corporate Staff, Company, Office, Agent, Team, Listings and New
+    Development information.
+  humanURL: https://developers.anywhere.re/api-product/broker-agent-tools-plus/summary
+  tags:
+  - Real Estate
+  - Marketing
+  - Transactions
+  - Listings
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/broker-agent-tools-plus/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/broker-agent-tools-plus/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:realogy-broker-production
+  name: Anywhere Transactions - Franchise API
+  description: Synchronize brokerage production (transaction) data from Anywhere, including Sale and Other
+    Income transactions and the associated buyer and seller information.
+  humanURL: https://developers.anywhere.re/api-product/realogy-broker-production/summary
+  tags:
+  - Real Estate
+  - Transactions
+  - Back Office
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/realogy-broker-production/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/realogy-broker-production/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:backoffice
+  name: Anywhere Back Office Management API
+  description: Write and update data into Anywhere systems, covering Listing, Transaction, Agent, Team,
+    Office and Company data across all Anywhere franchise brands. Backed by the Anywhere Dash back-office
+    platform.
+  humanURL: https://developers.anywhere.re/api-product/backoffice/summary
+  tags:
+  - Real Estate
+  - Back Office
+  - Listings
+  - Transactions
+  - Franchise
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/backoffice/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/backoffice/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.realogy.com/1.0/dash
+- aid: anywhere-real-estate:realogyentitiesro
+  name: Anywhere BackOffice Read-only API
+  description: Read-only access to Anywhere back-office data from the Dash platform, including listing,
+    transaction, agent, team, office and company data.
+  humanURL: https://developers.anywhere.re/api-product/realogyentitiesro/summary
+  tags:
+  - Real Estate
+  - Back Office
+  - Listings
+  - Transactions
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/realogyentitiesro/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/realogyentitiesro/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:agentcrmintegration
+  name: Anywhere Leads Management API
+  description: Powers third-party CRM applications to sync lead data with Anywhere source systems so agents
+    can manage leads and contacts in one place. Third-party CRMs can receive, submit and update leads,
+    and query leads by Company, Agents and Teams.
+  humanURL: https://developers.anywhere.re/api-product/agentcrmintegration/summary
+  tags:
+  - Real Estate
+  - Leads
+  - CRM
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/agentcrmintegration/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/agentcrmintegration/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:referralplatformv2
+  name: Anywhere Referral Leads API
+  description: Submit a new lead to Anywhere's referral platform for a specific real estate referral program
+    and share status updates across the customer's home buying or selling journey, including agent placement,
+    pending sale and final sale.
+  humanURL: https://developers.anywhere.re/api-product/referralplatformv2/summary
+  tags:
+  - Real Estate
+  - Leads
+  - Referrals
+  - Franchise
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/referralplatformv2/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/referralplatformv2/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:referral-partner-integration
+  name: Anywhere Referral Partner Integration API
+  description: Submit a new lead to Anywhere's referral platform for a specific real estate referral program,
+    creating a connected experience between the client, Anywhere and the agent, with status updates throughout
+    the transaction journey.
+  humanURL: https://developers.anywhere.re/api-product/referral-partner-integration/summary
+  tags:
+  - Real Estate
+  - Leads
+  - Referrals
+  - Franchise
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/referral-partner-integration/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/referral-partner-integration/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:iprospect
+  name: Anywhere Agent Recruiting API
+  description: An endpoint for third-party CRM integration partners to deliver recruiting activities into
+    Anywhere's iProspect application, validated against current iProspect business rules to prevent invalid
+    data entry.
+  humanURL: https://developers.anywhere.re/api-product/iprospect/summary
+  tags:
+  - Real Estate
+  - Recruiting
+  - Leads
+  - CRM
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/iprospect/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/iprospect/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:c2shinningc
+  name: Anywhere Consumer Journey API
+  description: Track a consumer's real estate transaction end to end, giving buyers visibility into the
+    closing process with clear milestones, action items and status updates. Backed by Anywhere Integrated
+    Services (AIS) Homebase.
+  humanURL: https://developers.anywhere.re/api-product/c2shinningc/summary
+  tags:
+  - Real Estate
+  - Consumer
+  - Transactions
+  - Title
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/c2shinningc/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/c2shinningc/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:earnestmoney
+  name: Anywhere Earnest Money API
+  description: 'Manage and access earnest money data for brokered trades: payee search, buyer and seller
+    retrieval for a deal, creation of disbursement records, and retrieval and update of bank and transaction
+    details.'
+  humanURL: https://developers.anywhere.re/api-product/earnestmoney/summary
+  tags:
+  - Real Estate
+  - Escrow
+  - Finance
+  - Transactions
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/earnestmoney/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/earnestmoney/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:settlement-company-capability
+  name: Anywhere Settlement Company API
+  description: Exposes Anywhere Integrated Services settlement companies and their details, letting a
+    consuming application retrieve settlement companies by filter criteria with results sorted by proximity.
+  humanURL: https://developers.anywhere.re/api-product/settlement-company-capability/summary
+  tags:
+  - Real Estate
+  - Title
+  - Settlement
+  - Escrow
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/settlement-company-capability/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/settlement-company-capability/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:relocationauthorization
+  name: Anywhere Relocation Authorization API
+  description: Lets corporate clients trigger new relocation initiations or authorizations into Cartus.
+    Authorizations are processed, a new customer file is created in the Cartus case management system,
+    and the new Cartus file ID is returned to the client system.
+  humanURL: https://developers.anywhere.re/api-product/relocationauthorization/summary
+  tags:
+  - Real Estate
+  - Relocation
+  - Cartus
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/relocationauthorization/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/relocationauthorization/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:realvitalize-vendor-services
+  name: Anywhere RealVitalize API
+  description: Allows HomeAdvisor to integrate its backend services with the RealVitalize backend — accessing
+    enrollment information and adding or updating enrollment-related jobs, invoices and project status.
+  humanURL: https://developers.anywhere.re/api-product/realvitalize-vendor-services/summary
+  tags:
+  - Real Estate
+  - Home Services
+  - Vendors
+  - Franchise
+  - Brokerage
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/realvitalize-vendor-services/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/realvitalize-vendor-services/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:realogy-user-access
+  name: Anywhere User Access Management API
+  description: Build and manage user access to Anywhere brand extranet applications and build user access
+    reports. Exposes a user's profile plus the list of applications, brands, companies, master franchises
+    and offices the user can reach.
+  humanURL: https://developers.anywhere.re/api-product/realogy-user-access/summary
+  tags:
+  - Real Estate
+  - Identity
+  - Access Management
+  - Franchise
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-product/realogy-user-access/summary
+  - type: APIReference
+    url: https://developers.anywhere.re/api-product/realogy-user-access/specification
+  - type: Authentication
+    url: https://developers.anywhere.re/docs/realogy-oauth
+- aid: anywhere-real-estate:anywhere-leads-engine
+  name: Anywhere Leads Engine API
+  description: Handles ingestion, routing and assignment of leads for Anywhere brands. Listed on the developer
+    portal home page as a Partner-visibility product; its product page returns HTTP 403 to anonymous visitors,
+    so only the portal's own one-line summary is public.
+  humanURL: https://developers.anywhere.re/api-product/anywhere-leads-engine/summary
+  tags:
+  - Real Estate
+  - Leads
+  - Routing
+  - Franchise
+  - Brokerage
+  - Digital Fabric
+  properties:
+  - type: Documentation
+    url: https://developers.anywhere.re/api-products
+common:
+- type: Website
+  url: https://anywhere.re/
+- type: Portal
+  url: https://developers.anywhere.re/
+- type: Documentation
+  url: https://developers.anywhere.re/api-products
+- type: GettingStarted
+  url: https://developers.anywhere.re/docs/how-it-works
+- type: Authentication
+  url: https://developers.anywhere.re/docs/realogy-oauth
+- type: Authentication
+  url: authentication/anywhere-real-estate-okta-prod-authorization-server.json
+  name: Anywhere (Realogy) Okta production OAuth 2.0 authorization server metadata
+- type: Authentication
+  url: authentication/anywhere-real-estate-okta-prod-openid-configuration.json
+  name: Anywhere (Realogy) Okta production OpenID Connect discovery document
+- type: Authentication
+  url: authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+  name: Anywhere (Realogy) Okta non-production OAuth 2.0 authorization server metadata
+- type: Signup
+  url: https://developers.anywhere.re/user/register
+- type: Login
+  url: https://developers.anywhere.re/Login
+- type: Support
+  url: https://developers.anywhere.re/support
+- type: StatusPage
+  url: https://developers.anywhere.re/status
+- type: ChangeLog
+  url: https://developers.anywhere.re/release-notes
+- type: TermsOfService
+  url: https://developers.anywhere.re/terms-use-api-license-agreement
+- type: PrivacyPolicy
+  url: https://privacy.anywhere.re/en/global-privacy-notice
+- type: Blog
+  url: https://developers.anywhere.re/get-inspired?type=blog
+- type: GitHubOrganization
+  url: https://github.com/Anywhererealestate
+- type: LinkedIn
+  url: https://www.linkedin.com/company/anywhere-real-estate-inc/
+- type: X (Twitter)
+  url: https://x.com/anywhere_re
+- type: YouTube
+  url: https://www.youtube.com/@anywhererealestateinc
+- type: InvestorRelations
+  url: https://ir.anywhere.re/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
