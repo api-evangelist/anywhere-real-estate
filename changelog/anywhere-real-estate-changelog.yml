@@ -1,0 +1,188 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/release-notes
+docs: https://developers.anywhere.re/release-notes
+scheme: platform release number (APIM release), e.g. 1.3.35
+current_version: 1.3.35
+current_version_date: '2026-03-24'
+coverage: >-
+  "This page provides release notes for Anywhere API products released in 2022 and later."
+  196 dated releases are listed, running from 2022 to March 24, 2026, at roughly two
+  platform releases per month.
+public: true
+change_control: >-
+  Each release names its ServiceNow change record (CHG…) and most per-specification changes
+  name the driving incident/request (INC…), so Anywhere publishes internal change-control
+  identifiers alongside every API change. This is materially stronger disclosure than the
+  gated specification surface implies.
+observation: >-
+  The release notes are the strongest public evidence that Anywhere maintains real OpenAPI
+  definitions — dozens of entries are titled "<Product> | <API> Open API Spec Change" and
+  describe added endpoints, deleted endpoints, new fields, new headers and enum expansions.
+  None of those specifications is retrievable anonymously.
+entries:
+- version: 1.3.35
+  date: '2026-03-24'
+  change_record: CHG0063363
+  breaking: false
+  highlights:
+  - 'Referral Partner Integration | Referralleads Open API Spec change (INC1118249): regex
+    expressions refined and minimum/maximum length validations added.'
+- version: 1.3.34
+  date: '2026-03-05'
+  change_record: CHG0063019
+  breaking: false
+  highlights:
+  - 'Referral Leads | Referralsservice Open API Spec change (INC1105251): new broker
+    contact details endpoint by company ID, expanded referral stage/status/sub-status
+    enums, dynamic task search endpoint.'
+  - Portal page surfacing MongoDB Atlas project clusters with start/manage controls.
+- version: 1.3.33
+  date: '2026-02-24'
+  change_record: CHG0062841
+  breaking: false
+  additions:
+  - 'New API product: Vectara AI — corpus management, document indexing and upload,
+    semantic querying with RAG, AI agent orchestration and user/key management. Vectara
+    instances run in Anywhere AWS VPCs and are exposed through the Anywhere API gateway.'
+  highlights:
+  - 'Office | Office Open API Spec change (INC1098825): officeProgram and
+    officeProgramWithProviderInfo objects added to the request body.'
+  - 'Cartus HHG OFS | Cartushhgofs Open API Spec change (INC1098821): HHG Milestones
+    endpoint gains additional delivery date fields.'
+- version: 1.3.32
+  date: '2026-02-12'
+  change_record: CHG0062611
+  breaking: false
+  highlights:
+  - AI Chatbot released for external users over the public product catalogue; private and
+    partner products are excluded from chatbot results.
+  - 'Referral Partner Integration | Referralleads spec update (INC1091144): addition of the
+    x-hous-version header to comply with Anywhere RE Compliance Standards.'
+  - 'Transactions | Deal Open API Spec change (INC1090524): new endpoint to create Deal Side
+    Expenses.'
+  - 'Referral Leads | Referralsservice Open API Spec change (INC1091964): new partner
+    escalation endpoints and an approvedBy field on the transaction close object.'
+  - Portal MongoDB data sync now persists the latest API specification URLs per
+    product-exposed API, stored as distinct records per product.
+- version: 1.3.31
+  date: '2026-02-10'
+  change_record: CHG0062537
+  breaking: false
+  additions:
+  - 'Notification Services | In-App Services: new Open API spec in production (INC1087854),
+    initially supporting creation of in-app notification templates.'
+  highlights:
+  - 'Deals | Comet Open API Spec change (INC1087647): new includeBM query parameter.'
+- version: 1.3.30
+  date: '2026-02-05'
+  change_record: CHG0062418
+  breaking: false
+  highlights:
+  - Compass internal users can now reach the Developer Portal through federated
+    authentication with Compass Okta.
+  - AI Assistant optimization — context handling, search backend latency, conversational logic.
+  - 'Transactions | Deal v0.0 and v1.0 Open API Spec change (INC1084987): additional request
+    and response fields for PropertyType enhancements.'
+  - 'Phoenix and MLS Data Service | Mls Open API Spec changes.'
+- version: 1.3.29
+  date: '2026-01-29'
+  change_record: CHG0062260
+  breaking: false
+  highlights:
+  - RealEstatePerson API redeployed so PII-sensitive consumer requests route through
+    BufferedTarget while other traffic uses StreamingTarget.
+  - 'Anywhere Master Data (MDM) | Listing Metrics Open API Spec change (INC1079517): examples
+    added for companyGuid, officeGuid, startDate, endDate, status, sortBy, sortOrder,
+    pageIndex and itemsPerPage.'
+- version: 1.3.28
+  date: '2026-01-27'
+  change_record: CHG0062166
+  breaking: false
+  highlights:
+  - 'Agent Profiles | Trident Open API Spec change (INC1076390): four new endpoints for
+    authentication, password reset, password validation and username verification for RNI
+    users across the Sotheby''s and Corcoran brands.'
+  - Automated PII data caching and conditional buffered/streaming routing for the
+    RealEstatePerson API via Apigee custom configurations.
+- version: 1.3.27
+  date: '2026-01-20'
+  breaking: true
+  highlights:
+  - 'MLS Data Service | Mls Open API Spec change (INC1070044): new endpoint GET /mls/agent;
+    TWO endpoints DELETED — PUT /mls/listing/{listing_id}/source/{source_system_key} and
+    POST /mls/rdm-source/{rdm_source_system_key}/listing/{listing_id}.'
+  - 'Deals | Comet Open API Spec change (INC1073298): new preferredEmailAddress field.'
+  - 'Listing Syndication | Datasync Open API Spec change (INC1074240): new New Development
+    GET endpoint including sequenceNumber under the agents collection.'
+  breaking_note: >-
+    Two MLS endpoints were removed in this release. The release note records the removal but
+    no deprecation window, sunset header or migration guidance is published.
+- version: 1.3.26
+  date: '2026-01-15'
+  change_record: CHG0061967
+  breaking: false
+  highlights:
+  - AVV (API Verification and Validation) enhanced so audit API call-volume rows survive app
+    revocation, preserving the audit trail for compliance and reporting.
+  - 'Commissions and Receivables | Ar, Referral Leads | Referralsservice and MLS Data Service
+    | Mlsagent Open API Spec changes.'
+  - Anonymous login module downgraded to a stable version to remove vulnerabilities in the
+    newer release.
+- version: 1.3.25
+  date: '2026-01-13'
+  breaking: false
+  highlights:
+  - 'Anywhere Master Data (MDM) | Properties and Transactionmetrics Open API Spec changes.'
+  - 'Transactions | Deal v0.0 and v1.0 Open API Spec changes (INC1066966, INC1066970).'
+  - APIM AI Chatbot/Assistant enhancements.
+- version: 1.3.24
+  date: '2026-01-06'
+  change_record: CHG0061894
+  breaking: false
+  additions:
+  - 'New product: Applications API (INC1057713) — discover, access and manage available
+    applications for agents and brokers based on their Okta profile data, returning
+    application details and metadata and letting users manage application preferences.'
+- version: 1.3.23
+  date: '2025-12-18'
+  breaking: false
+  highlights:
+  - 'Open API Spec changes across Referral Leads | Referralsservice, Back Office Management |
+    Dash, Listing Syndication | Datasync, MLS Data Service | Listingsdirect-event-processing
+    and Anywhere Master Data (MDM) | Agentmetrics.'
+- version: 1.3.22
+  date: '2025-12-16'
+  breaking: false
+  highlights:
+  - 'Open API Spec changes across Listing Business Capability | Listingscapability,
+    Commissions and Receivables | Deal, Phoenix and Agent Profiles | Trident.'
+notable_historical:
+- release: '1.220'
+  date: '2024-10-15'
+  note: >-
+    Hard launch of JTP (JSON Threat Protection) and regex checks in production for the RFG
+    and EPS API groups — "enable checks for SQL injection or content level attacks patterns
+    and stops the malicious incoming requests such that the corrupted data does not invoke
+    the backend system." Same release mandated that API specification filenames embed the
+    API version.
+- release: SwaggerHub Retirement
+  note: Anywhere moved off SwaggerHub as its specification host.
+products_named_in_release_notes_but_not_in_the_public_catalogue:
+- Vectara AI
+- Applications API
+- 'Notification Services (In-App Services)'
+- 'Agent Profiles (Trident)'
+- 'Deals (Comet)'
+- Phoenix
+- 'Commissions and Receivables (Ar)'
+- 'Listing Business Capability (Listingscapability)'
+- 'Cartus HHG OFS (Cartushhgofs)'
+- RealEstatePerson
+- 'Enterprise Company Information (aiscdl)'
+- 'Enterprise Company Onboarding (aiscompanyonboarding)'
+- 'Online Notarization (aisnotarizewebhook)'
+note_on_that_list: >-
+  These names appear in the anonymously readable release notes and several answer 401 on the
+  production gateway, but they have no public product page, so they are recorded here as
+  evidence of surface rather than promoted into apis.yml as documented APIs.

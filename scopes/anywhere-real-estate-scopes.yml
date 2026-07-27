@@ -1,0 +1,130 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/docs/realogy-oauth
+docs: https://developers.anywhere.re/docs/realogy-oauth
+model: App ID URI
+caution: >-
+  Anywhere OAuth scopes are Azure/Okta-style App ID URIs — opaque identifiers for a REST
+  API, NOT base URLs. The OAuth guide states verbatim "The App ID URI is a unique
+  identifier for the REST API. It is not where the REST API is hosted." Probing
+  https://btt.realogyfg.com/ does not resolve. Never treat a scope value as a host.
+assignment: >-
+  Scopes are granted per approved application ("Scope: Will be communicated in the final
+  approval"). A developer cannot self-select scopes; the set is bound to the API products
+  the application was approved for. Scope is passed to the Okta token endpoint as a
+  space-separated list.
+schemes:
+- name: AnywhereOAuth2
+  flow: clientCredentials
+  authorization_server_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7
+  authorization_server_non_production: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7
+  token_endpoint_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/token
+  token_endpoint_non_production: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/v1/token
+  source: https://developers.anywhere.re/docs/realogy-oauth
+product_scopes:
+- scope: https://btt.realogyfg.com/dashapi
+  description: Dash back-office API. Named as the worked example in the OAuth guide.
+  product: Back Office Management (backoffice)
+  source: https://developers.anywhere.re/docs/realogy-oauth
+- scope: https://btt.realogyfg.com/datasyncapi
+  description: Datasync marketing/listing syndication API.
+  product: Listing Syndication (listing-syndication)
+- scope: https://btt.realogyfg.com/corporatestaffapi
+  description: Corporate Staff master data API.
+  product: Marketing - Franchise (broker-agent-tools)
+- scope: https://btt.realogyfg.com/transactionsapi
+  description: Brokerage production / transactions API.
+  product: Transactions - Franchise (realogy-broker-production)
+- scope: https://btt.realogyfg.com/dynamicsearchapi
+  description: Real-time dynamic search over listing details.
+  product: Dynamic Search (dynamic-search)
+- scope: https://btt.realogyfg.com/propertypromotionsapi
+  description: Listing promotions, channels and publication lists.
+  product: Listings Promotions (property-promotions)
+- scope: https://btt.realogyfg.com/analyticsapi
+  description: Listing metrics and analytics.
+  product: Listing Metric (realogy-listings-metrics)
+- scope: https://btt.realogyfg.com/securityapi
+  description: User access / security API on the BTT estate.
+  product: User Access Management (realogy-user-access)
+- scope: https://dataservices.eap.com/eaplistingsapi
+  description: >-
+    MLS Data Service listings API. Confirmed verbatim on the MLS Data Service product
+    page Requirements section - "Okta scope - https://dataservices.eap.com/eaplistingsapi".
+  product: MLS Data Service (mls-data-service)
+  source: https://developers.anywhere.re/api-product/mls-data-service/summary
+- scope: https://api.realogy.com/leadrouterapi
+  description: Lead routing API.
+  product: Leads Management / Leads Engine
+- scope: https://api.realogy.com/iprospectapi
+  description: iProspect agent recruiting API.
+  product: Agent Recruiting (iprospect)
+- scope: https://api.realogy.com/c2shinningcapi
+  description: Consumer Journey (AIS Homebase) API.
+  product: Consumer Journey (c2shinningc)
+- scope: https://api.realogy.com/referralleadsapi
+  description: Referral leads API.
+  product: Referral Partner Integration / Referral Leads
+- scope: https://api.realogy.com/reloauthorizationapi
+  description: Cartus relocation authorization API.
+  product: Relocation Authorization (relocationauthorization)
+- scope: https://api.realogy.com/realvitalizevendorsapi
+  description: RealVitalize vendor services API.
+  product: RealVitalize (realvitalize-vendor-services)
+- scope: https://api.realogy.com/settlementcompanycapabilityapi
+  description: Anywhere Integrated Services settlement company API.
+  product: Settlement Company (settlement-company-capability)
+- scope: https://api.anywhere.re/referralpartnerintegration
+  description: Referral Partner Integration API.
+  product: Referral Partner Integration (referral-partner-integration)
+- scope: https://eps.nrtllc.com/securityapi
+  description: User access / security API on the EPS (NRT) estate.
+  product: User Access Management (realogy-user-access)
+- scope: apim-listingextensions
+  description: >-
+    Listing Extensions API. The only documented scope that is a bare identifier rather
+    than an App ID URI.
+  product: Listing Extensions (listingextensions)
+authorization_server_scopes:
+  note: >-
+    Scopes advertised by the Okta authorization servers themselves (harvested from the
+    RFC 8414 metadata). These are the standard OIDC/Okta scopes, separate from the
+    per-product App ID URIs above, and are not the scopes an API product consumer is
+    granted.
+  production:
+  - https://agentx.com/userconfig
+  - interclient_access
+  - memberOf
+  - okta.myAccount.appAuthenticator.maintenance.manage
+  - okta.myAccount.appAuthenticator.maintenance.read
+  - okta.myAccount.appAuthenticator.manage
+  - okta.myAccount.appAuthenticator.read
+  - openid
+  - profile
+  - email
+  - address
+  - phone
+  - offline_access
+  - device_sso
+  non_production:
+  - interclient_access
+  - memberOf
+  - okta.myAccount.appAuthenticator.maintenance.manage
+  - okta.myAccount.appAuthenticator.maintenance.read
+  - okta.myAccount.appAuthenticator.manage
+  - okta.myAccount.appAuthenticator.read
+  - openid
+  - profile
+  - email
+  - address
+  - phone
+  - offline_access
+  - device_sso
+  sources:
+  - authentication/anywhere-real-estate-okta-prod-authorization-server.json
+  - authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+gaps:
+- 19 product scopes are published anonymously but Anywhere lists 23 API products; there
+  is no anonymously published scope for several products (including the Partner-only
+  Leads Engine).
+- No scope-to-operation mapping is public, because every API specification is login-gated.

@@ -72,6 +72,7 @@ apis:
     url: https://developers.anywhere.re/api-product/mls-data-service/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/mls
 - aid: anywhere-real-estate:master-data-services
   name: Anywhere Master Data (MDM) API
   description: A bundle of APIs representing clean, curated master data for Agent, Office, Company, Staff
@@ -115,6 +116,7 @@ apis:
     url: https://developers.anywhere.re/api-product/listing-syndication/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/datasync
 - aid: anywhere-real-estate:dynamic-search
   name: Anywhere Dynamic Search API
   description: Real-time search over Anywhere listing details for applications that do not maintain a
@@ -133,6 +135,7 @@ apis:
     url: https://developers.anywhere.re/api-product/dynamic-search/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/dynamicsearch
 - aid: anywhere-real-estate:listingextensions
   name: Anywhere Listing Extensions API
   description: A bundle of APIs for listings submitted through external and internal products, enhancing
@@ -169,6 +172,7 @@ apis:
     url: https://developers.anywhere.re/api-product/property-promotions/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/propertypromotions
 - aid: anywhere-real-estate:realogy-listings-metrics
   name: Anywhere Listing Metric API
   description: Listing management metric information for Anywhere franchise brands, including video views,
@@ -321,6 +325,7 @@ apis:
     url: https://developers.anywhere.re/api-product/referralplatformv2/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/referralsservice
 - aid: anywhere-real-estate:referral-partner-integration
   name: Anywhere Referral Partner Integration API
   description: Submit a new lead to Anywhere's referral platform for a specific real estate referral program,
@@ -339,6 +344,7 @@ apis:
     url: https://developers.anywhere.re/api-product/referral-partner-integration/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/referralleads
 - aid: anywhere-real-estate:iprospect
   name: Anywhere Agent Recruiting API
   description: An endpoint for third-party CRM integration partners to deliver recruiting activities into
@@ -359,6 +365,7 @@ apis:
     url: https://developers.anywhere.re/api-product/iprospect/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/iprospect
 - aid: anywhere-real-estate:c2shinningc
   name: Anywhere Consumer Journey API
   description: Track a consumer's real estate transaction end to end, giving buyers visibility into the
@@ -396,6 +403,7 @@ apis:
     url: https://developers.anywhere.re/api-product/earnestmoney/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/earnestmoney
 - aid: anywhere-real-estate:settlement-company-capability
   name: Anywhere Settlement Company API
   description: Exposes Anywhere Integrated Services settlement companies and their details, letting a
@@ -413,6 +421,7 @@ apis:
     url: https://developers.anywhere.re/api-product/settlement-company-capability/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/settlementcompany
 - aid: anywhere-real-estate:relocationauthorization
   name: Anywhere Relocation Authorization API
   description: Lets corporate clients trigger new relocation initiations or authorizations into Cartus.
@@ -430,6 +439,7 @@ apis:
     url: https://developers.anywhere.re/api-product/relocationauthorization/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/reloauthorization
 - aid: anywhere-real-estate:realvitalize-vendor-services
   name: Anywhere RealVitalize API
   description: Allows HomeAdvisor to integrate its backend services with the RealVitalize backend — accessing
@@ -448,6 +458,7 @@ apis:
     url: https://developers.anywhere.re/api-product/realvitalize-vendor-services/specification
   - type: Authentication
     url: https://developers.anywhere.re/docs/realogy-oauth
+  baseURL: https://api.anywhere.re/realvitalize
 - aid: anywhere-real-estate:realogy-user-access
   name: Anywhere User Access Management API
   description: Build and manage user access to Anywhere brand extranet applications and build user access
@@ -483,6 +494,49 @@ apis:
   - type: Documentation
     url: https://developers.anywhere.re/api-products
 common:
+- type: Authentication
+  url: authentication/anywhere-real-estate-authentication.yml
+  name: Anywhere authentication profile (apiKey header + Okta OAuth 2.0 client credentials)
+- type: OAuthScopes
+  url: scopes/anywhere-real-estate-scopes.yml
+  name: Anywhere OAuth scopes (App ID URIs) documented on the portal
+- type: WellKnown
+  url: well-known/anywhere-real-estate-well-known.yml
+  name: Anywhere /.well-known/ discovery surface (probed)
+- type: Conventions
+  url: conventions/anywhere-real-estate-conventions.yml
+  name: Anywhere API conventions (gateway, versioning, key lifecycle, base paths)
+- type: ErrorCatalog
+  url: errors/anywhere-real-estate-problem-types.yml
+  name: Anywhere observed error envelopes (Apigee fault + policy rejection)
+- type: Lifecycle
+  url: lifecycle/anywhere-real-estate-lifecycle.yml
+  name: Anywhere API lifecycle (versioning, version history, status, deprecation findings)
+- type: ChangeLog
+  url: changelog/anywhere-real-estate-changelog.yml
+  name: Anywhere developer portal release notes (196 releases, current 1.3.35)
+- type: Conformance
+  url: conformance/anywhere-real-estate-conformance.yml
+  name: Anywhere standards conformance (OAuth/OIDC yes, RESO certification no)
+- type: Compliance
+  url: https://trust.anywhere.re/
+  name: Cartus (Anywhere) Trust Center - SOC 1, SOC 2 Type 2, ISO/IEC 27001:2022, SOX, GDPR
+- type: Sandbox
+  url: sandbox/anywhere-real-estate-sandbox.yml
+  name: Anywhere sandbox environment, Try It console and Postman flow (approval-gated)
+- type: Packages
+  url: packages/anywhere-real-estate-packages.yml
+  name: Anywhere public packages (@bspk design system, API Key Rotator toolkit)
+- type: Components
+  url: components/anywhere-real-estate-components.yml
+  name: Bespoke (bspk) design system components
+- type: LLMsTxt
+  url: llms/anywhere-real-estate-llms.txt
+  name: Anywhere llms.txt generated by API Evangelist
+- type: TrustCenter
+  url: security/anywhere-real-estate-trust-center.yml
+- type: DomainSecurity
+  url: security/anywhere-real-estate-domain-security.yml
 - type: Website
   url: https://anywhere.re/
 - type: Portal
@@ -502,7 +556,7 @@ common:
 - type: Authentication
   url: authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
   name: Anywhere (Realogy) Okta non-production OAuth 2.0 authorization server metadata
-- type: Signup
+- type: SignUp
   url: https://developers.anywhere.re/user/register
 - type: Login
   url: https://developers.anywhere.re/Login

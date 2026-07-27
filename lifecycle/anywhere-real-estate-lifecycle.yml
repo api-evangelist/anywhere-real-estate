@@ -1,0 +1,85 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/release-notes
+supporting_sources:
+- https://developers.anywhere.re/status
+- https://developers.anywhere.re/status/history
+- https://developers.anywhere.re/api-product/mls-data-service/product-version-history
+- https://developers.anywhere.re/terms-use-api-license-agreement
+versioning:
+  scheme: product version + per-API version
+  header: x-hous-version
+  current_platform_release: 1.3.35
+  current_platform_release_date: '2026-03-24'
+  docs: https://developers.anywhere.re/api-product/mls-data-service/product-version-history
+  description: >-
+    Each API product carries its own version (e.g. MLS Data Service 2.0, activated
+    2026-02-05) and each component API inside that product carries an independent version
+    (mls 1.0, mls-display-rules 2.0, mlsagent 2.1). Every product exposes an anonymously
+    readable, downloadable Version History page listing every product version, its
+    activation timestamp, and the component APIs and API versions in that release. This is
+    unusually good version transparency for a gated estate.
+  version_history_pattern: https://developers.anywhere.re/api-product/{product}/product-version-history
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  finding: >-
+    Anywhere publishes no deprecation or sunset policy anonymously and there is no evidence
+    of RFC 8594 Sunset/Deprecation header support. Deprecations are announced ad hoc inside
+    individual release notes rather than governed by a stated policy.
+  observed_deprecations:
+  - change: 'Removed Endpoint: PATCH /policy (deprecated and removed)'
+    source: https://developers.anywhere.re/release-notes
+  - change: >-
+      Filter parameters simplified to accept both prefixed (filter.) and non-prefixed
+      formats for backward compatibility; the filter. prefix is now deprecated.
+    source: https://developers.anywhere.re/release-notes
+  - change: Swaggerhub Retirement — the platform moved off SwaggerHub as a specification host.
+    source: https://developers.anywhere.re/release-notes
+  - change: Integration Toolkit — End of Life validation.
+    source: https://developers.anywhere.re/release-notes
+  - change: 'Deleting Apps | Consumer Journey Decommission'
+    source: https://developers.anywhere.re/release-notes
+  product_removal_evidence: >-
+    The MLS Data Service version history shows the component API "mlsoffice" present in
+    product version 1.0 and absent from product version 2.0, replaced by "mlsofficeroster"
+    — a component-level removal visible only by diffing the version history pages.
+retirement_of_products:
+  note: >-
+    Anywhere reserves broad termination rights in the API Terms of Use & License Agreement
+    (last updated May 19, 2025), which grants only a "limited, non-exclusive, revocable,
+    non-assignable, non-sublicensable license." Access is revocable at Anywhere's
+    discretion; there is no committed notice period published anonymously.
+  source: https://developers.anywhere.re/terms-use-api-license-agreement
+status_page: https://developers.anywhere.re/status
+status_history: https://developers.anywhere.re/status/history
+status_page_notes: >-
+  A first-party status page with an incident email subscription ("Get email notifications
+  whenever Anywhere creates, updates or resolves an incident") and a separate history page.
+  No machine-readable status feed (no /api/v2/status.json, no RSS/Atom) is exposed.
+sla:
+  url: null
+  uptime_target: null
+  finding: No uptime SLA or availability target is published anonymously.
+api_key_lifecycle:
+  expires: true
+  renewal_window_days: 45
+  notification: automated email 45 days before expiry
+  hard_stop: renewal is only possible up to the day of expiry
+  automation_toolkits: [aws, azure, local-on-prem, manual]
+  docs: https://developers.anywhere.re/blog/api-key-rotation-user-guide
+release_cadence:
+  releases_published: 196
+  window: 2022 to March 2026
+  observed_cadence: roughly two platform releases per month
+  change_management: >-
+    Every release note carries a ServiceNow change record (e.g. CHG0063363) and most
+    specification changes carry an incident/request number (e.g. INC1118249), so Anywhere
+    publishes its internal change-control identifiers alongside each API change.
+  detail: changelog/anywhere-real-estate-changelog.yml
+deprecated_operations: []
+gaps:
+- No published deprecation policy, no Sunset/Deprecation header commitment, no SLA.
+- No machine-readable status feed despite a real status page.

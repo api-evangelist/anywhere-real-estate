@@ -1,0 +1,176 @@
+generated: '2026-07-26'
+method: searched
+source: >-
+  https://developers.anywhere.re/docs/realogy-oauth plus harvested Okta discovery documents,
+  https://trust.anywhere.re/ and https://www.reso.org/certificates/
+note: >-
+  Conformance is asserted only where there is public evidence. Because every Anywhere API
+  specification is login-gated, spec-level conformance (RFC 9457 problem details, OData,
+  JSON:API, pagination conventions) cannot be verified and is recorded as unknown rather
+  than guessed.
+standards:
+- id: oauth2-rfc6749
+  name: OAuth 2.0 Authorization Framework
+  conforms: true
+  evidence: >-
+    The published OAuth guide documents the client_credentials grant against Okta
+    authorization servers; the harvested RFC 8414 metadata advertises client_credentials,
+    authorization_code, refresh_token, implicit, device_code and CIBA grants.
+  source: https://developers.anywhere.re/docs/realogy-oauth
+- id: oauth2-client-credentials
+  name: OAuth 2.0 client credentials grant
+  conforms: true
+  evidence: 'Grant Type: client_credentials, documented verbatim with token endpoints for both environments.'
+- id: rfc8414-authorization-server-metadata
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: >-
+    Anonymously retrievable at
+    https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/oauth-authorization-server
+    (HTTP 200) and the non-production equivalent; both harvested verbatim to authentication/.
+- id: openid-connect-discovery
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/.well-known/openid-configuration
+    returns 200 with a userinfo_endpoint and the full OIDC claim set.
+- id: openid-connect-core
+  name: OpenID Connect Core 1.0
+  conforms: true
+  evidence: >-
+    The authorization server advertises the openid/profile/email/address/phone scopes,
+    id_token response types and the standard OIDC claims. Note this is the identity layer
+    for portal and workforce login; API product access itself uses client_credentials, which
+    is not an OIDC flow.
+- id: rfc7636-pkce
+  name: PKCE (Proof Key for Code Exchange)
+  conforms: true
+  evidence: 'code_challenge_methods_supported: [S256] on both production and non-production authorization servers.'
+- id: rfc7662-token-introspection
+  name: OAuth 2.0 Token Introspection
+  conforms: true
+  evidence: introspection_endpoint published on both authorization servers.
+- id: rfc7009-token-revocation
+  name: OAuth 2.0 Token Revocation
+  conforms: true
+  evidence: revocation_endpoint published on both authorization servers.
+- id: rfc7523-private-key-jwt
+  name: JWT client authentication (private_key_jwt / client_secret_jwt)
+  conforms: true
+  evidence: >-
+    token_endpoint_auth_methods_supported includes private_key_jwt and client_secret_jwt,
+    though the Anywhere OAuth guide only walks developers through client_secret_basic /
+    client_secret_post.
+- id: rfc9116-security-txt
+  name: security.txt
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returns 404 on anywhere.re, developers.anywhere.re,
+    api.anywhere.re and api.realogy.com (probed 2026-07-26).
+- id: rfc9727-api-catalog
+  name: /.well-known/api-catalog
+  conforms: false
+  evidence: 404 on every Anywhere host probed.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Observed gateway errors use proprietary envelopes — the Apigee
+    {"fault":{"faultstring":…,"detail":{"errorcode":…}}} shape and an Anywhere
+    {"statusCode":401,"message":…} shape — with content-type application/json, never
+    application/problem+json.
+- id: rfc8594-sunset-header
+  name: Sunset HTTP header
+  conforms: false
+  evidence: No deprecation policy or Sunset/Deprecation header commitment is published; endpoint removals appear in release notes only.
+- id: reso-data-dictionary
+  name: RESO Data Dictionary
+  conforms: partial
+  certified: false
+  evidence: >-
+    Anywhere uses RESO vocabulary as a private convention. The MLS Data Service product page
+    states verbatim "Get listings data using canonical RESO format" and the Master Data
+    product page states "The Listings APIs provide listings, images, and open house data in
+    Real Estate Standards Organization (RESO) name space convention." No Data Dictionary
+    version is ever named.
+- id: reso-web-api
+  name: RESO Web API
+  conforms: false
+  certified: false
+  evidence: >-
+    RESO Web API is OData; no $metadata document is obtainable
+    (developers.anywhere.re/$metadata 404, api.anywhere.re/mls/v1/$metadata 401). Anywhere
+    exposes proprietary REST, not a RESO Web API endpoint.
+- id: reso-certification
+  name: RESO Certification
+  conforms: false
+  certified: false
+  evidence: >-
+    The RESO Certification Status directory (https://www.reso.org/certificates/, 578
+    organizations, data updated 07/24/2026) contains no entry for Anywhere, Realogy,
+    Coldwell Banker, Century 21, Sotheby's, Corcoran, Better Homes, Cartus or NRT.
+- id: odata
+  name: OData
+  conforms: false
+  evidence: No $metadata, no OData query semantics documented. Filtering uses an Anywhere-specific filter. prefix convention.
+- id: json-api
+  name: 'JSON:API'
+  conforms: unknown
+  evidence: >-
+    The developer PORTAL runs Drupal JSON:API at /jsonapi (401 to anonymous callers), but
+    that is the portal CMS, not a product API.
+- id: idempotency
+  name: Idempotency keys
+  conforms: unknown
+  evidence: No idempotency contract appears in any anonymously readable material.
+- id: openapi
+  name: OpenAPI
+  conforms: true
+  published_publicly: false
+  evidence: >-
+    Anywhere demonstrably authors and maintains OpenAPI definitions — dozens of release notes
+    are titled "<Product> | <API> Open API Spec Change" and describe endpoint, field and
+    header changes, and release 1.3.32 records that the portal persists "the latest API
+    specification URLs for all product-exposed APIs." None is retrievable without a login.
+compliance_programs:
+  note: >-
+    Certifications below are published on the Cartus Trust Center at https://trust.anywhere.re/
+    (SafeBase). Cartus is Anywhere's global relocation business and the trust center is served
+    on an anywhere.re subdomain; the certifications are scoped to Cartus, not asserted for the
+    whole Anywhere estate or specifically for the developer platform.
+  url: https://trust.anywhere.re/
+  certifications:
+  - SOC 1
+  - SOC 2 Type 2
+  - ISO/IEC 27001:2022
+  - SOX
+  - GDPR
+  - EU-US Data Privacy Framework
+  - Cyber Essentials
+  self_assessments: [SIG Core]
+  gated_documents:
+  - SOC 2 Report
+  - ISO/IEC 27001:2022 certificate
+  - Application Penetration Testing
+  - Network Penetration Testing
+  - Encryption Policy
+  - Information Security Policy
+  - Software Development Lifecycle Policy
+  - Vulnerability Management Policy
+  - Business Continuity Plan (BCP)
+  - Disaster Recovery Plan (DRP)
+  - Data Flow Diagram (DFD)
+  access: NDA-gated request flow through SafeBase ("Get access")
+  detail: security/anywhere-real-estate-trust-center.yml
+privacy:
+  global_privacy_notice: https://privacy.anywhere.re/en/global-privacy-notice
+  pii_handling_evidence: >-
+    Release 1.3.28 / 1.3.29 (January 2026) describe PII-aware routing for the RealEstatePerson
+    API — PII-sensitive consumer requests routed through BufferedTarget with KVM-backed caching
+    while other traffic uses StreamingTarget — an unusually specific public disclosure of a
+    data-protection control at the gateway layer.
+gateway_protections:
+- json-threat-protection
+- regex-injection-checks
+- api-key-enforcement
+- oauth2-bearer-enforcement

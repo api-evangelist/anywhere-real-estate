@@ -1,0 +1,45 @@
+generated: '2026-07-26'
+method: searched
+source: https://github.com/Anywhererealestate
+summary: >-
+  Anywhere ships no embeddable API components (no hosted widgets, no embedded dashboards, no
+  drop-in listing elements) — the developer platform is server-to-server only. It does
+  publish a real, public, first-party client-side component library: Bespoke ("bspk"), the
+  Anywhere design system, distributed on npm under the @bspk scope with source on the
+  Anywhere GitHub organization. Recorded here for accuracy, with the boundary stated
+  explicitly: these are brand UI components for Anywhere development teams, NOT components
+  that render Anywhere API data for third parties.
+api_embeds:
+  present: false
+  evidence: >-
+    No embed, widget, iframe, web-component or hosted-UI surface appears on any of the 22
+    anonymously readable API product pages or in the portal documentation.
+families:
+- name: Bespoke (bspk) design system
+  official: true
+  public: true
+  api_bound: false
+  audience: 'Verbatim from the package descriptions - "available for Anywhere Real Estate development teams."'
+  license: CC-BY-4.0
+  components:
+  - name: '@bspk/ui'
+    kind: web component library
+    url: https://www.npmjs.com/package/@bspk/ui
+    repository: https://github.com/Anywhererealestate/bspk-ui
+    version: 1.4.3
+  - name: '@bspk/ui-ngx'
+    kind: Angular component library
+    url: https://www.npmjs.com/package/@bspk/ui-ngx
+    repository: https://github.com/Anywhererealestate/bspk-ui-ngx
+    version: 1.2.4
+  - name: '@bspk/styles'
+    kind: design tokens / stylesheets
+    url: https://www.npmjs.com/package/@bspk/styles
+    version: 1.1.7
+  - name: '@bspk/icons'
+    kind: icon set
+    url: https://www.npmjs.com/package/@bspk/icons
+    version: 1.1.1
+  demo: https://github.com/Anywhererealestate/bspk-demo
+  loader: npm / bundler; no CDN loader script is published
+  packages_reference: packages/anywhere-real-estate-packages.yml

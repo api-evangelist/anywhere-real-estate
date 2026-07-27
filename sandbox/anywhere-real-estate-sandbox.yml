@@ -1,0 +1,84 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/docs/how-it-works
+supporting_sources:
+- https://developers.anywhere.re/blog/how-check-api-responses-real-time
+- https://developers.anywhere.re/blog/test-anywhere-apis-postman-collection
+- authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+summary: >-
+  Anywhere publishes a real sandbox environment and an in-browser Try It console, but both
+  sit behind the same human approval gate as production. There are no magic test values, no
+  test card numbers and no anonymously reachable sandbox endpoint — the sandbox is a
+  separately credentialed environment, not a public playground.
+environments:
+- name: Sandbox
+  purpose: 'Verbatim - "The sandbox environment is where you test the functionality of an API."'
+  self_serve: false
+  approval_required: true
+  approval_sla: up to 2 business days
+  credentials: separate API key plus separate Okta client credentials, issued per application
+  identity_provider: https://realogy.oktapreview.com
+  token_endpoint: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/v1/token
+  base_urls_published: false
+  base_url_note: >-
+    'REST API URL(s) will be communicated separately for each environment (Non-Prod and
+    Production).' No sandbox host is published anonymously.
+- name: Production
+  self_serve: false
+  approval_required: true
+  approval_sla: up to 2 business days
+  identity_provider: https://realogy.okta.com
+  token_endpoint: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/token
+  gateway_hosts: [https://api.anywhere.re, https://api.realogy.com]
+onboarding_flow:
+- Choose an API product from https://developers.anywhere.re/api-products
+- Register free on the portal (or log in with an existing Anywhere ID) and activate by email link
+- Accept the API Terms of Use & License Agreement
+- Add an App under My Apps, selecting the API product, the environment and a Company/Group/Team
+- Wait for Anywhere approval of sandbox access (up to 2 business days)
+- Collect the API key and Okta client credentials from My Apps
+- Build and test against the sandbox
+- Request production access; wait for a second Anywhere approval (up to 2 business days)
+console:
+  name: Try It
+  present: true
+  gated: true
+  location: every API product Specification page
+  description: >-
+    Verbatim - "Anywhere Try It setup allows you to make API calls directly from API docs.
+    You can check any API method using this function to get real time responses with no
+    coding." The developer supplies a bearer token and apiKey, selects an environment
+    (target server) and query parameters, and sends.
+  requires: [product access for the chosen environment, API key from My Apps, Okta credentials, generated bearer token]
+  source: https://developers.anywhere.re/blog/how-check-api-responses-real-time
+code_samples:
+  present: true
+  gated: true
+  languages: [curl, nodejs, javascript, python, csharp, java]
+  response_samples: >-
+    'Response sample provide all possible error codes and associated messages that you can
+    expect for a given API method.'
+postman:
+  present: true
+  public: false
+  location: the Essential Reads section of each API product page
+  workflow:
+  - Download the product's Postman collection from Essential Reads
+  - Import it into Postman
+  - Collect API Key, Okta Client ID, Okta Client Secret, Scope and Okta URL from Dashboard > My Apps
+  - 'Generate a bearer token: Basic Auth with Client ID / Client Secret, x-www-form-urlencoded body with grant_type=client_credentials and scope'
+  - 'Set globals: token, baseUrl (from the specification page) and apiKey'
+  globals: [token, baseUrl, apiKey]
+  source: https://developers.anywhere.re/blog/test-anywhere-apis-postman-collection
+test_data:
+  magic_values_published: false
+  test_cards: none
+  test_identifiers: none
+  fixtures: none
+  time_simulation: none
+  note: >-
+    Anywhere publishes no test values of any kind anonymously. Nothing was invented for this
+    artifact — the sandbox is credentialed, not seeded with public fixtures.
+gaps:
+- No anonymously callable sandbox endpoint, so a developer cannot evaluate the API before entering a commercial relationship.
+- Sandbox and production each require a separate human approval, adding up to 4 business days before first production call.

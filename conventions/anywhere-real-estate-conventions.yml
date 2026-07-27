@@ -1,0 +1,250 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/docs/realogy-oauth
+supporting_sources:
+- https://developers.anywhere.re/release-notes
+- https://developers.anywhere.re/docs/how-it-works
+- https://developers.anywhere.re/blog/test-anywhere-apis-postman-collection
+- https://developers.anywhere.re/blog/how-check-api-responses-real-time
+- https://developers.anywhere.re/blog/api-key-rotation-user-guide
+- anonymous probes of https://api.anywhere.re and https://api.realogy.com (2026-07-26)
+summary: >-
+  Anywhere runs an Apigee-fronted estate. Cross-cutting semantics are only partly public:
+  the credential model, the token-caching rule, the API-key lifecycle and the gateway
+  threat-protection posture are documented anonymously, while pagination, filtering and
+  error contracts live inside login-gated OpenAPI specifications. Everything recorded here
+  was either published anonymously or observed directly against the live gateway.
+
+gateway:
+  vendor: Apigee (Google Cloud API Management), branded internally as APIM
+  virtual_host: realogy-secure
+  evidence: >-
+    Anonymous requests to an unregistered path return the Apigee fault envelope
+    {"fault":{"faultstring":"Unable to identify proxy for host: realogy-secure and url:
+    ..."},"detail":{"errorcode":"messaging.adaptors.http.flow.ApplicationNotFound"}}.
+  hosts:
+  - host: https://api.anywhere.re
+    role: current production gateway
+  - host: https://api.realogy.com
+    role: legacy production gateway, still referenced by the OAuth guide and by several scopes
+  security_headers_observed:
+  - X-Frame-Options: DENY
+  - X-Content-Type-Options: nosniff
+  - X-XSS-Protection: 1; mode=block
+
+authentication:
+  style: dual credential — Anywhere API key header plus Okta OAuth 2.0 client-credentials bearer token
+  headers:
+  - name: apiKey
+    required: true
+    description: Anywhere-issued API key for the calling application.
+  - name: Authorization
+    required: true
+    value: 'Bearer {access_token}'
+  - name: x-hous-version
+    required: unknown
+    description: >-
+      Anywhere-specific API version header. Introduced across specifications through 2025
+      and 2026 releases as a compliance requirement — release notes repeatedly record
+      "Addition of apikey and x-hous-version headers... Alignment with internal governance
+      and consistency standards" (15 occurrences across the public release notes) and
+      1.3.32 (February 12, 2026) records "Addition of x-hous-version header" so that the
+      Referralleads specification would "comply with Anywhere RE Compliance Standards."
+      The permitted values are not published anonymously.
+  detail: authentication/anywhere-real-estate-authentication.yml
+  token_caching_rule: >-
+    Mandatory. Verbatim - "Applications who fail to cache their access tokens and request
+    new access tokens for every REST API call they make will have their access immediately
+    suspended." Tokens must be cached to within 5 minutes of expiry.
+
+versioning:
+  scheme: two-level — API product version plus per-API version, both integers with a minor part
+  product_version_example:
+    product: MLS Data Service
+    versions:
+    - version: '2.0'
+      activated: '2026-02-05 04:24:22'
+    - version: '1.0'
+      activated: '2025-08-14 07:11:29'
+    - version: '0.0'
+      activated: '2023-09-14 06:34:41'
+    source: https://developers.anywhere.re/api-product/mls-data-service/product-version-history
+  api_version_example: >-
+    Within MLS Data Service 2.0 the component APIs carry independent versions - mls 1.0,
+    mls-display-rules 2.0, mls-listings-stats 1.0, mlsagent 2.1, mlsagentroster 1.0,
+    mlsofficeroster 1.0, listingsdirect-event-processing 1.0.
+  header: x-hous-version
+  path_versioning: >-
+    Observed on the gateway - the MLS proxy answers at /mls and /mls/v1, so a /v{n} path
+    segment is in use under at least some base paths.
+  spec_filename_convention: >-
+    Release 1.220 (October 15, 2024) required API specification filenames submitted to the
+    publishing repository to embed the API version, "Simplifies the process of tracking
+    changes and updates to the API by embedding the version directly in the filename."
+  version_history_pages: anonymously readable per product at /api-product/<slug>/product-version-history
+
+filtering:
+  convention: >-
+    Filter parameters accept both a prefixed (filter.) and a non-prefixed form for backward
+    compatibility; the release notes record that "the filter. prefix is now deprecated."
+  source: https://developers.anywhere.re/release-notes
+pagination:
+  documented_publicly: false
+  note: Pagination parameters are only visible inside the login-gated specifications.
+
+idempotency:
+  supported: unknown
+  documented: false
+  note: >-
+    No idempotency key, no retry-safety contract and no de-duplication guarantee appears
+    anywhere in the anonymously readable documentation, the OAuth guide or 196 public
+    release notes. Deliberately NOT claimed — this repo emits no Idempotency pointer.
+
+rate_limiting:
+  documented_publicly: false
+  note: >-
+    No rate limit, quota or throttling policy is published anonymously and no RateLimit /
+    X-RateLimit / Retry-After header was returned on any anonymous probe. Apigee products
+    normally carry a quota, but Anywhere does not disclose it before approval.
+  enforcement_observed: >-
+    Access suspension is used as the enforcement mechanism for the token-caching rule
+    rather than a published rate limit.
+
+request_validation:
+  json_threat_protection: true
+  regex_protection: true
+  detail: >-
+    Release 1.220 (October 15, 2024) hard-launched JTP (JSON Threat Protection) and regex
+    checks in production across the RFG and EPS API groups - "enable checks for SQL
+    injection or content level attacks patterns and stops the malicious incoming requests
+    such that the corrupted data does not invoke the backend system."
+  input_validation: >-
+    Release 1.3.35 (March 24, 2026) records "refining the regex expressions and adding
+    minimum and maximum length validations to ensure end users provide valid input values."
+
+error_envelope:
+  detail: errors/anywhere-real-estate-problem-types.yml
+  format: proprietary JSON, not RFC 9457
+  gateway_fault_shape: '{"fault":{"faultstring":"...","detail":{"errorcode":"..."}}}'
+  auth_fault_shape: '{"statusCode":401,"message":"..."}'
+  problem_json: false
+
+request_tracing:
+  documented_publicly: false
+  note: No request-id or correlation-id header is documented anonymously.
+
+environments:
+- name: Sandbox
+  approval_required: true
+  approval_sla: up to 2 business days
+- name: Production
+  approval_required: true
+  approval_sla: up to 2 business days
+  note: Production access is a second, separate approval after sandbox.
+detail: sandbox/anywhere-real-estate-sandbox.yml
+
+api_key_lifecycle:
+  expires: true
+  renewal_window_days: 45
+  notification: automated email
+  hard_stop: 'Verbatim - "You will only be able to renew key until the day of the expiry."'
+  automation: >-
+    Anywhere publishes a dual-mode API Key Rotation engine with downloadable toolkits for
+    AWS (a Lambda extension layer plus an ApiKeyRotatorFunction), Azure, local/on-prem and
+    a manual portal path.
+  docs: https://developers.anywhere.re/blog/api-key-rotation-user-guide
+
+developer_tooling:
+  try_it_console:
+    present: true
+    gated: true
+    description: >-
+      Every specification page carries a Try It console that executes live calls against a
+      selected target server after the developer supplies a bearer token and apiKey.
+    source: https://developers.anywhere.re/blog/how-check-api-responses-real-time
+  code_samples:
+    languages: [curl, nodejs, javascript, python, csharp, java]
+    gated: true
+    source: https://developers.anywhere.re/blog/how-check-api-responses-real-time
+  postman:
+    present: true
+    public: false
+    location: the Essential Reads section of each API product page (login-gated)
+    variables: [token, baseUrl, apiKey]
+    source: https://developers.anywhere.re/blog/test-anywhere-apis-postman-collection
+  ai_assistant:
+    present: true
+    description: >-
+      Release 1.3.32 (February 12, 2026) shipped an AI Chatbot for external users over the
+      public product catalogue, with private and partner products excluded; 1.3.30
+      (February 5, 2026) optimized it. It is a portal search assistant, not an MCP server.
+
+gateway_base_paths:
+  method: probed
+  date: '2026-07-26'
+  technique: >-
+    Anonymous GET against candidate base paths on the production gateway. A registered
+    proxy answers 401 with {"statusCode":401,"message":"Failed to resolve API Key variable
+    apiKey"}; an unregistered path answers 404 with the Apigee ApplicationNotFound fault.
+    The 401/404 split therefore enumerates which proxies exist without disclosing anything
+    behind them.
+  host: https://api.anywhere.re
+  registered_401:
+  - mls
+  - mls-display-rules
+  - mls-listings-stats
+  - mlsagent
+  - mlsagentroster
+  - mlsofficeroster
+  - listingsdirect-event-processing
+  - dash
+  - datasync
+  - office
+  - company
+  - properties
+  - corporatestaff
+  - deal
+  - comet
+  - trident
+  - phoenix
+  - ar
+  - commissions
+  - transactions
+  - transactionmetrics
+  - agentmetrics
+  - listingmetrics
+  - listingscapability
+  - referralleads
+  - referralsservice
+  - iprospect
+  - leadrouter
+  - leads
+  - dynamicsearch
+  - search
+  - propertypromotions
+  - analytics
+  - security
+  - earnestmoney
+  - settlementcompany
+  - reloauthorization
+  - realvitalize
+  - cartushhgofs
+  - aiscdl
+  - aiscompanyonboarding
+  - aisnotarizewebhook
+  - applications
+  legacy_host: https://api.realogy.com
+  legacy_registered_401: [dash, mls, leadrouter, iprospect, referralleads, reloauthorization]
+  caveat: >-
+    A 401 proves a proxy is registered at that base path; it does not disclose operations,
+    parameters or schemas, and nothing below the base path was enumerated. No operation was
+    invented from this evidence.
+
+cross_links:
+  authentication: authentication/anywhere-real-estate-authentication.yml
+  scopes: scopes/anywhere-real-estate-scopes.yml
+  errors: errors/anywhere-real-estate-problem-types.yml
+  lifecycle: lifecycle/anywhere-real-estate-lifecycle.yml
+  changelog: changelog/anywhere-real-estate-changelog.yml
+  sandbox: sandbox/anywhere-real-estate-sandbox.yml
+  conformance: conformance/anywhere-real-estate-conformance.yml

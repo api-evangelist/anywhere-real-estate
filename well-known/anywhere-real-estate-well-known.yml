@@ -1,0 +1,107 @@
+generated: '2026-07-26'
+method: searched
+source: anonymous HTTP probes of every Anywhere API/portal/marketing host and the Okta authorization servers named in https://developers.anywhere.re/docs/realogy-oauth
+summary: >-
+  Anywhere serves no /.well-known/ documents of its own on any host it operates
+  (api.anywhere.re, api.realogy.com, developers.anywhere.re, anywhere.re) — every
+  probe returns 404. The provider's real, machine-readable discovery surface lives
+  on its identity provider instead: Okta publishes RFC 8414 OAuth 2.0 Authorization
+  Server Metadata and an OpenID Connect Discovery document for both the production
+  and non-production Anywhere authorization servers, and all three were harvested
+  verbatim. There is no security.txt (RFC 9116), no RFC 9727 /.well-known/api-catalog
+  and no ai-plugin.json anywhere in the estate.
+hosts:
+- host: https://realogy.okta.com
+  role: production identity provider (Okta) named in the Anywhere OAuth guide
+- host: https://realogy.oktapreview.com
+  role: non-production identity provider (Okta preview) named in the Anywhere OAuth guide
+- host: https://api.anywhere.re
+  role: production API gateway (Apigee)
+- host: https://api.realogy.com
+  role: legacy production API gateway (Apigee), still referenced by the OAuth guide
+- host: https://developers.anywhere.re
+  role: developer portal (Drupal)
+- host: https://anywhere.re
+  role: corporate marketing site (WordPress)
+documents:
+- path: /oauth2/aus7i8b1taFyPOEGc1t7/.well-known/oauth-authorization-server
+  host: https://realogy.okta.com
+  spec: RFC 8414
+  status: 200
+  file: ../authentication/anywhere-real-estate-okta-prod-authorization-server.json
+  note: production Anywhere authorization server metadata, harvested verbatim
+- path: /oauth2/aus7i8b1taFyPOEGc1t7/.well-known/openid-configuration
+  host: https://realogy.okta.com
+  spec: OpenID Connect Discovery 1.0
+  status: 200
+  file: ../authentication/anywhere-real-estate-okta-prod-openid-configuration.json
+  note: production OIDC discovery document, harvested verbatim
+- path: /oauth2/ausdtpyw647fbrcPi0h7/.well-known/oauth-authorization-server
+  host: https://realogy.oktapreview.com
+  spec: RFC 8414
+  status: 200
+  file: ../authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+  note: non-production (sandbox) authorization server metadata, harvested verbatim
+- path: /.well-known/security.txt
+  host: https://anywhere.re
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/security.txt
+  host: https://developers.anywhere.re
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/security.txt
+  host: https://api.anywhere.re
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/security.txt
+  host: https://api.realogy.com
+  spec: RFC 9116
+  status: 404
+- path: /.well-known/api-catalog
+  host: https://anywhere.re
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/api-catalog
+  host: https://developers.anywhere.re
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/api-catalog
+  host: https://api.anywhere.re
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/api-catalog
+  host: https://api.realogy.com
+  spec: RFC 9727
+  status: 404
+- path: /.well-known/openid-configuration
+  host: https://api.anywhere.re
+  spec: OpenID Connect Discovery 1.0
+  status: 404
+- path: /.well-known/openid-configuration
+  host: https://developers.anywhere.re
+  spec: OpenID Connect Discovery 1.0
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  host: https://api.anywhere.re
+  spec: RFC 8414
+  status: 404
+- path: /.well-known/ai-plugin.json
+  host: https://api.anywhere.re
+  status: 404
+- path: /.well-known/ai-plugin.json
+  host: https://developers.anywhere.re
+  status: 404
+- path: /llms.txt
+  host: https://developers.anywhere.re
+  status: 404
+- path: /llms.txt
+  host: https://anywhere.re
+  status: 404
+security_txt: none
+findings:
+- Every /.well-known/ path Anywhere itself could serve returns 404; the only 200s in
+  the whole estate are on the Okta identity provider.
+- Because the Okta authorization server metadata is anonymously readable, the token
+  endpoints, supported grant types, PKCE support and token endpoint auth methods are
+  fully discoverable even though the API specifications are not.

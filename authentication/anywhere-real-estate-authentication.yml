@@ -1,0 +1,129 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.anywhere.re/docs/realogy-oauth
+docs: https://developers.anywhere.re/docs/realogy-oauth
+supporting_sources:
+- https://developers.anywhere.re/blog/test-anywhere-apis-postman-collection
+- https://developers.anywhere.re/blog/generate-bearer-token-using-api-credentials
+- https://developers.anywhere.re/blog/api-key-rotation-user-guide
+- authentication/anywhere-real-estate-okta-prod-authorization-server.json
+- authentication/anywhere-real-estate-okta-prod-openid-configuration.json
+- authentication/anywhere-real-estate-okta-nonprod-authorization-server.json
+summary:
+  types: [oauth2, apiKey]
+  api_key_in: [header]
+  api_key_name: apiKey
+  oauth2_flows: [clientCredentials]
+  dual_credential: true
+  note: >-
+    Every call to an Anywhere API requires BOTH credentials — an Anywhere-issued API
+    key in the apiKey header AND an Okta-issued OAuth 2.0 bearer token obtained with
+    the client_credentials grant. Neither alone is sufficient. The two credentials do
+    different jobs, stated verbatim in the OAuth guide: "API keys identify the calling
+    application and make the call to an API. Authentication tokens identify a user that
+    is using the application."
+identity_provider:
+  vendor: Okta
+  production_org: https://realogy.okta.com
+  non_production_org: https://realogy.oktapreview.com
+  federation: >-
+    Developer Portal release 1.3.30 (February 5, 2026) added federated authentication
+    with Compass Okta for Compass internal users, following the January 9, 2026
+    combination of Anywhere Real Estate and Compass.
+schemes:
+- name: AnywhereApiKey
+  type: apiKey
+  in: header
+  parameter_name: apiKey
+  description: >-
+    Anywhere-issued API key, provisioned per application per environment from the
+    developer portal Dashboard > My Apps. Verbatim from the OAuth guide - "Every call
+    to the APIs requires an API Key. This key must be passed in the request header as
+    apiKey."
+  issued_by: developer portal (My Apps), after Anywhere approval
+  rotation:
+    supported: true
+    expires: true
+    renewal_window_days: 45
+    notes: >-
+      API keys expire. The portal exposes a Renew Key action 45 days before expiry and
+      sends an automated email; renewal is only possible up to the day of expiry.
+      Anywhere ships a dual-mode API Key Rotation engine with downloadable toolkits for
+      AWS (Lambda extension layer), Azure, local/on-prem and a manual path.
+    docs: https://developers.anywhere.re/blog/api-key-rotation-user-guide
+  sources: [https://developers.anywhere.re/docs/realogy-oauth]
+- name: AnywhereOAuth2
+  type: oauth2
+  flow: clientCredentials
+  grant_type: client_credentials
+  token_endpoint_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/token
+  token_endpoint_non_production: https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/v1/token
+  authorization_endpoint_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/authorize
+  jwks_uri_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/keys
+  introspection_endpoint_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/introspect
+  revocation_endpoint_production: https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/revoke
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - none
+  code_challenge_methods_supported: [S256]
+  client_credentials_delivery: >-
+    The Postman walkthrough instructs developers to send the client credentials as HTTP
+    Basic Auth (Okta Client ID as username, Client Secret as password) with a
+    x-www-form-urlencoded body carrying grant_type=client_credentials and scope; the
+    OAuth guide's own Postman steps say to send client credentials in the body. Both
+    client_secret_basic and client_secret_post are advertised by the authorization
+    server.
+  response_fields: [access_token, token_type, expires_in, scope]
+  token_type: bearer
+  request_header: 'Authorization: Bearer {access_token}'
+  sources:
+  - https://developers.anywhere.re/docs/realogy-oauth
+  - authentication/anywhere-real-estate-okta-prod-authorization-server.json
+scopes:
+  model: App ID URI
+  reference: scopes/anywhere-real-estate-scopes.yml
+  caution: >-
+    Anywhere scopes are App ID URIs, not URLs to call. The OAuth guide warns verbatim
+    "The App ID URI is a unique identifier for the REST API. It is not where the REST
+    API is hosted." REST API URLs are communicated separately per environment after
+    approval.
+  assignment: >-
+    "Scope: Will be communicated in the final approval" — scopes are granted per
+    approved application, not self-selected.
+operational_rules:
+- rule: mandatory token caching
+  text: >-
+    Verbatim - "All access tokens have an expiration and must be cached by the
+    application within 5 minutes of expiration. Applications who fail to cache their
+    access tokens and request new access tokens for every REST API call they make will
+    have their access immediately suspended."
+  enforcement: immediate suspension
+- rule: client secret handling
+  text: >-
+    Verbatim - "Always store the client secret key securely... This should never be
+    stored in a Mobile App or Native App." A replacement secret can be requested on
+    suspected compromise.
+- rule: separate credentials per application
+  text: >-
+    Verbatim - "Each client application must have separate credentials set and the API
+    Key."
+- rule: separate credentials per environment
+  text: >-
+    Sandbox and production are independently approved and independently credentialed;
+    each approval takes up to 2 business days.
+observed:
+- probe: https://api.anywhere.re/mls/v1
+  status: 401
+  body: '{"statusCode":401,"message":"Failed to resolve API Key variable apiKey"}'
+  note: >-
+    The gateway rejects an anonymous call on the API-key check before it ever evaluates
+    the bearer token, confirming apiKey is enforced at the Apigee layer.
+  date: '2026-07-26'
+gaps:
+- No mutualTLS, no openIdConnect discovery advertised on the API gateway itself.
+- No public OpenAPI, so securitySchemes cannot be verified per operation; this profile
+  is built entirely from the anonymously published OAuth guide plus harvested Okta
+  discovery documents.

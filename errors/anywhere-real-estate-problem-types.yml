@@ -1,0 +1,76 @@
+generated: '2026-07-26'
+method: derived
+source: anonymous HTTP probes of https://api.anywhere.re and https://api.realogy.com (2026-07-26)
+format: proprietary-json
+rfc9457: false
+note: >-
+  Anywhere publishes no error reference anonymously and no OpenAPI is reachable without a
+  login, so no operation-level 4xx/5xx catalogue can be derived. What IS observable is the
+  gateway's own error surface: every anonymous call to the Apigee estate returns one of two
+  JSON envelopes, and the choice between them is itself informative. Nothing below was
+  invented — each entry was captured from a live response.
+envelopes:
+- name: apigee-fault
+  shape: '{"fault":{"faultstring":"<message>","detail":{"errorcode":"<apigee error code>"}}}'
+  content_type: application/json
+  emitted_by: the Apigee router, before any Anywhere proxy is selected
+- name: policy-rejection
+  shape: '{"statusCode":<int>,"message":"<message>"}'
+  content_type: application/json
+  emitted_by: an Anywhere API proxy's own security policy
+problems:
+- status: 404
+  envelope: apigee-fault
+  errorcode: messaging.adaptors.http.flow.ApplicationNotFound
+  title: No API proxy registered for this host and path
+  message_observed: 'Unable to identify proxy for host: realogy-secure and url: /'
+  meaning: >-
+    The request reached the gateway but no proxy is bound to that base path. This is a
+    routing miss, not a resource miss — it does not mean a resource was deleted.
+  observed_at:
+  - https://api.anywhere.re/
+  - https://api.realogy.com/
+  - https://api.realogy.com/1.0/dash/batches/1
+  remediation: Confirm the REST API URL supplied by Anywhere at approval; base paths are per-environment.
+- status: 401
+  envelope: policy-rejection
+  title: API key missing
+  message_observed: Failed to resolve API Key variable apiKey
+  meaning: >-
+    A proxy IS registered at this base path, but the request carried no apiKey header. The
+    API-key check runs before the OAuth bearer check, so a token-only request fails here.
+  observed_at:
+  - https://api.anywhere.re/mls
+  - https://api.anywhere.re/mls/v1
+  - https://api.anywhere.re/mls/v1/listings
+  remediation: >-
+    Send the Anywhere-issued API key in the apiKey request header alongside the
+    Authorization Bearer token. Both are required on every call.
+- status: 401
+  envelope: unknown
+  title: Developer portal JSON:API unauthorized
+  message_observed: null
+  content_type: application/vnd.api+json
+  meaning: The portal's own Drupal JSON:API is enabled but rejects anonymous callers.
+  observed_at: [https://developers.anywhere.re/jsonapi]
+- status: 403
+  envelope: html
+  title: Restricted portal resource
+  meaning: >-
+    Partner-visibility API product pages and the Confluent Kafka operational dashboard
+    return 403 to anonymous visitors.
+  observed_at:
+  - https://developers.anywhere.re/api-product/anywhere-leads-engine/summary
+  - https://developers.anywhere.re/confluent-kafka-operational-dashboard
+enforcement_errors:
+- trigger: failure to cache access tokens
+  consequence: immediate access suspension
+  source: https://developers.anywhere.re/docs/realogy-oauth
+- trigger: JSON Threat Protection / regex policy violation (SQL injection or content-level attack patterns)
+  consequence: request rejected at the gateway before the backend is invoked
+  source: https://developers.anywhere.re/release-notes
+gaps:
+- Per-operation error codes and messages exist — the portal blog states response samples
+  "provide all possible error codes and associated messages that you can expect for a given
+  API method" — but that content is behind login.
+- No application/problem+json, no RFC 9457 type URIs, no published error registry.

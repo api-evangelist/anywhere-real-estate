@@ -1,0 +1,124 @@
+generated: '2026-07-26'
+method: searched
+source: >-
+  npm registry search plus https://github.com/Anywhererealestate and
+  https://developers.anywhere.re/blog/api-key-rotation-user-guide
+summary: >-
+  Anywhere publishes NO public API client SDK. Every API product page carries an SDK tab, but
+  /api-product/<slug>/sdk redirects anonymous visitors to /Login, and neither GitHub
+  organization contains a client library. What IS published publicly is (a) the Bespoke
+  ("bspk") design system — four first-party npm packages of brand UI components — and (b) an
+  API Key Rotator toolkit distributed as a downloadable zip plus public AWS Lambda extension
+  layer ARNs. Neither is an API client library, so this repo emits a Packages pointer and
+  deliberately does NOT emit an SDKs pointer.
+api_client_sdks:
+  public: false
+  count: 0
+  evidence:
+  - path: https://developers.anywhere.re/api-product/mls-data-service/sdk
+    result: redirects to /Login
+  - source: https://api.github.com/orgs/Anywhererealestate/repos
+    result: 5 public repos, all the bspk design system; no client library
+  - source: https://api.github.com/orgs/realogy
+    result: 0 public repos
+  registries_probed:
+  - registry: npm
+    queries: [anywhere-real-estate, realogy, anywhere-re, cartus]
+    api_client_hits: 0
+  - registry: pypi
+    queries: [anywhere-real-estate, realogy, cartus]
+    hits: 0
+  - registry: rubygems
+    hits: 0
+  - registry: packagist
+    hits: 0
+  - registry: nuget
+    hits: 0
+  - registry: crates.io
+    hits: 0
+  - registry: pkg.go.dev
+    hits: 0
+packages:
+- language: javascript
+  registry: npm
+  name: '@bspk/ui'
+  version: 1.4.3
+  url: https://www.npmjs.com/package/@bspk/ui
+  install: npm install @bspk/ui
+  repository: https://github.com/Anywhererealestate/bspk-ui
+  license: CC-BY-4.0
+  official: true
+  kind: design-system
+  api_client: false
+  description: >-
+    'Bespoke UI package contains all the components that are available for Anywhere Real
+    Estate development teams.'
+  last_published: '2026-02-09'
+- language: javascript
+  registry: npm
+  name: '@bspk/ui-ngx'
+  version: 1.2.4
+  url: https://www.npmjs.com/package/@bspk/ui-ngx
+  install: npm install @bspk/ui-ngx
+  repository: https://github.com/Anywhererealestate/bspk-ui-ngx
+  license: CC-BY-4.0
+  official: true
+  kind: design-system
+  api_client: false
+  description: Angular component build of the Bespoke design system.
+  last_published: '2026-02-18'
+- language: javascript
+  registry: npm
+  name: '@bspk/styles'
+  version: 1.1.7
+  url: https://www.npmjs.com/package/@bspk/styles
+  install: npm install @bspk/styles
+  repository: https://github.com/Anywhererealestate/bspk-styles
+  license: CC-BY-4.0
+  official: true
+  kind: design-system
+  api_client: false
+  last_published: '2026-02-05'
+- language: javascript
+  registry: npm
+  name: '@bspk/icons'
+  version: 1.1.1
+  url: https://www.npmjs.com/package/@bspk/icons
+  install: npm install @bspk/icons
+  repository: https://github.com/Anywhererealestate/bspk-icons
+  license: CC-BY-4.0
+  official: true
+  kind: design-system
+  api_client: false
+  last_published: '2026-01-28'
+toolkits:
+- name: Anywhere API Key Rotator for AWS
+  artifact: anywhere-aws-apikeyrotator-toolkit.zip
+  distribution: downloaded from the developer portal (View API Credentials > AWS - API Key Rotator)
+  gated: true
+  official: true
+  contents: [index.js, sampleAppsRequest.json, ReadMe.md]
+  runtime: AWS Lambda function plus a Lambda extension layer
+  public_layer_arns:
+  - arn:aws:lambda:us-west-1:232313522912:layer:ApiKeyToolkitApp-Extension-Layer-1:1
+  - arn:aws:lambda:us-west-2:232313522912:layer:ApiKeyToolkitApp-Extension-Layer-1:1
+  - arn:aws:lambda:us-east-1:232313522912:layer:ApiKeyToolkitApp-Extension-Layer-1:1
+  - arn:aws:lambda:us-east-2:232313522912:layer:ApiKeyToolkitApp-Extension-Layer-1:1
+  integrations: [AWS Secrets Manager, SSM Parameter Store, Lambda environment variables]
+  purpose: automated renewal of the Anywhere API key against Apigee within the expiration SLA
+  docs: https://developers.anywhere.re/blog/api-key-rotation-user-guide
+- name: Anywhere API Key Rotator for Azure
+  official: true
+  gated: true
+  docs: https://developers.anywhere.re/blog/api-key-rotation-options-azure
+- name: Anywhere API Key Rotator for local / on-prem
+  official: true
+  gated: true
+  docs: https://developers.anywhere.re/blog/api-key-rotation-options-localon-prem
+github_organizations:
+- url: https://github.com/Anywhererealestate
+  public_repos: 5
+  repos: [bspk-ui, bspk-styles, bspk-icons, bspk-demo, bspk-ui-ngx]
+- url: https://github.com/realogy
+  public_repos: 0
+  note: legacy organization, empty

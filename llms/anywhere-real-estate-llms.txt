@@ -1,0 +1,91 @@
+# Anywhere Real Estate
+
+> Anywhere Real Estate Inc. (formerly Realogy Holdings Corp., NYSE: HOUS) is one of the largest residential real estate services companies in the United States. It franchises and operates Better Homes and Gardens Real Estate, CENTURY 21, Coldwell Banker, Coldwell Banker Commercial, Corcoran, ERA and Sotheby's International Realty, and runs the Anywhere Advisors brokerage, Anywhere Integrated Services (title and settlement), the Anywhere Leads referral network and Cartus relocation. As of January 9, 2026 Anywhere Real Estate and Compass came together as Compass International Holdings. Anywhere operates an Apigee-backed developer portal at developers.anywhere.re listing 23 documented API products across MLS and listing data, marketing syndication, transactions, back office, leads, agent recruiting, earnest money, title settlement, relocation and user access.
+
+## How to read this
+
+Anywhere is a **licensed, approval-gated** API provider, not an open one. Every API specification, Postman collection and SDK page redirects anonymous visitors to login. Sandbox and production access each require a separate Anywhere review of up to two business days under a binding API Terms of Use and License Agreement. There is no anonymously callable Anywhere API. Anywhere is a RESO *consumer*, not a RESO certificant — it returns listings in "canonical RESO format" and uses RESO name space convention, but it does not appear in the RESO Certification Status directory and publishes no OData $metadata.
+
+## Authentication
+
+Every call needs TWO credentials: an Anywhere-issued API key in the `apiKey` request header, AND an Okta OAuth 2.0 bearer token obtained with the `client_credentials` grant.
+
+- [OAuth guide](https://developers.anywhere.re/docs/realogy-oauth): the full client-credentials walkthrough, published anonymously
+- Production token endpoint: `https://realogy.okta.com/oauth2/aus7i8b1taFyPOEGc1t7/v1/token`
+- Non-production token endpoint: `https://realogy.oktapreview.com/oauth2/ausdtpyw647fbrcPi0h7/v1/token`
+- Scopes are App ID URIs (e.g. `https://dataservices.eap.com/eaplistingsapi`), NOT hostnames — never call them
+- Mandatory rule: access tokens must be cached. "Applications who fail to cache their access tokens and request new access tokens for every REST API call they make will have their access immediately suspended."
+- API keys expire; the portal offers a Renew Key action 45 days before expiry, plus AWS / Azure / on-prem rotation toolkits
+
+## Getting started
+
+- [How it works](https://developers.anywhere.re/docs/how-it-works)
+- [Sign up](https://developers.anywhere.re/user/register)
+- [Log in](https://developers.anywhere.re/Login)
+- [API products catalogue](https://developers.anywhere.re/api-products)
+- [API Terms of Use & License Agreement](https://developers.anywhere.re/terms-use-api-license-agreement)
+
+## APIs
+
+- [MLS Data Service](https://developers.anywhere.re/api-product/mls-data-service/summary): listings in canonical RESO format, real-time MLS events, display rules, listing statistics
+- [Anywhere Master Data (MDM)](https://developers.anywhere.re/api-product/master-data-services/summary): curated Agent, Office, Company, Staff and Listings master data
+- [Listing Syndication](https://developers.anywhere.re/api-product/listing-syndication/summary): marketing data sync for all brands and the brokerage group
+- [Dynamic Search](https://developers.anywhere.re/api-product/dynamic-search/summary): real-time search over listing details for apps with no local data store
+- [Listing Extensions](https://developers.anywhere.re/api-product/listingextensions/summary): SMS Property ID, RealVitalize ID, Dash attribute management
+- [Listings Promotions](https://developers.anywhere.re/api-product/property-promotions/summary): channels, publication lists, nominated listings
+- [Listing Metric](https://developers.anywhere.re/api-product/realogy-listings-metrics/summary): video views, virtual tour views, listing views
+- [Marketing - Franchise](https://developers.anywhere.re/api-product/broker-agent-tools/summary)
+- [Marketing and Transactions](https://developers.anywhere.re/api-product/broker-agent-tools-plus/summary)
+- [Transactions - Franchise](https://developers.anywhere.re/api-product/realogy-broker-production/summary)
+- [Back Office Management](https://developers.anywhere.re/api-product/backoffice/summary): write and update Listing, Transaction, Agent, Team, Office and Company data via Dash
+- [BackOffice Read-only](https://developers.anywhere.re/api-product/realogyentitiesro/summary)
+- [Leads Management](https://developers.anywhere.re/api-product/agentcrmintegration/summary): third-party CRM lead sync
+- [Referral Leads](https://developers.anywhere.re/api-product/referralplatformv2/summary)
+- [Referral Partner Integration](https://developers.anywhere.re/api-product/referral-partner-integration/summary)
+- [Agent Recruiting](https://developers.anywhere.re/api-product/iprospect/summary): recruiting activities into iProspect
+- [Consumer Journey](https://developers.anywhere.re/api-product/c2shinningc/summary): transaction milestones via AIS Homebase
+- [Earnest Money](https://developers.anywhere.re/api-product/earnestmoney/summary)
+- [Settlement Company](https://developers.anywhere.re/api-product/settlement-company-capability/summary)
+- [Relocation Authorization](https://developers.anywhere.re/api-product/relocationauthorization/summary): initiations into Cartus
+- [RealVitalize](https://developers.anywhere.re/api-product/realvitalize-vendor-services/summary)
+- [User Access Management](https://developers.anywhere.re/api-product/realogy-user-access/summary)
+- Anywhere Leads Engine — Partner visibility only; the product page returns HTTP 403 to anonymous visitors
+
+## Specs
+
+No OpenAPI, AsyncAPI, GraphQL SDL, gRPC proto or OData $metadata document is retrievable anonymously. Anywhere demonstrably maintains OpenAPI definitions — dozens of release notes are titled "<Product> | <API> Open API Spec Change" — but every `/api-product/<slug>/specification` path redirects to `/Login`.
+
+- Okta OAuth 2.0 Authorization Server Metadata, production (RFC 8414): `authentication/anywhere-real-estate-okta-prod-authorization-server.json`
+- Okta OpenID Connect Discovery, production: `authentication/anywhere-real-estate-okta-prod-openid-configuration.json`
+- Okta OAuth 2.0 Authorization Server Metadata, non-production: `authentication/anywhere-real-estate-okta-nonprod-authorization-server.json`
+
+## API Evangelist artifacts in this repo
+
+- `authentication/anywhere-real-estate-authentication.yml` — the dual apiKey + OAuth 2.0 client-credentials profile
+- `scopes/anywhere-real-estate-scopes.yml` — the 19 anonymously documented App ID URI scopes
+- `conventions/anywhere-real-estate-conventions.yml` — gateway, versioning (`x-hous-version`), filtering, key lifecycle, and 43 gateway base paths enumerated by 401-vs-404 probing
+- `errors/anywhere-real-estate-problem-types.yml` — the observed Apigee fault and policy-rejection envelopes
+- `lifecycle/anywhere-real-estate-lifecycle.yml` — two-level product/API versioning, version-history pages, status page
+- `changelog/anywhere-real-estate-changelog.yml` — 196 public releases, current 1.3.35 (2026-03-24)
+- `conformance/anywhere-real-estate-conformance.yml` — OAuth/OIDC yes, RESO certification no, RFC 9457 no
+- `sandbox/anywhere-real-estate-sandbox.yml` — the approval-gated sandbox, Try It console and Postman flow
+- `packages/anywhere-real-estate-packages.yml` — no public API SDK; the @bspk design system and the API Key Rotator toolkit
+- `components/anywhere-real-estate-components.yml` — the Bespoke design system
+- `well-known/anywhere-real-estate-well-known.yml` — every /.well-known/ probe and its status
+- `security/anywhere-real-estate-domain-security.yml` — TLS/HSTS/SPF/DMARC/DNSSEC/CAA posture
+- `security/anywhere-real-estate-trust-center.yml` — the Cartus SafeBase trust center and its certifications
+- `review.yml` — the full API Evangelist review, including every probed URL and HTTP status
+
+## Operations
+
+- [Status](https://developers.anywhere.re/status) and [status history](https://developers.anywhere.re/status/history) — no machine-readable feed
+- [Release notes](https://developers.anywhere.re/release-notes) — 196 dated releases from 2022, each with its ServiceNow change record
+- [Support](https://developers.anywhere.re/support)
+- [Blog](https://developers.anywhere.re/get-inspired?type=blog)
+- [Trust center (Cartus)](https://trust.anywhere.re/) — SOC 1, SOC 2 Type 2, ISO/IEC 27001:2022, SOX, GDPR, EU-US DPF, Cyber Essentials
+- [Privacy notice](https://privacy.anywhere.re/en/global-privacy-notice)
+- [GitHub](https://github.com/Anywhererealestate) — 5 public repos, all the Bespoke design system
+
+## What does not exist
+
+No MCP server. No GraphQL endpoint. No AsyncAPI or public webhook catalogue (a Confluent Kafka operational dashboard page exists in the portal sitemap but returns HTTP 403). No `security.txt`. No `/.well-known/api-catalog`. No `llms.txt` on any Anywhere host. No public bug bounty. No published rate limits, deprecation policy or SLA. No public API client SDK. No RESO certification.

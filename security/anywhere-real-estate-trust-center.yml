@@ -1,0 +1,71 @@
+generated: '2026-07-26'
+method: searched
+probe: true
+source: https://trust.anywhere.re/
+url: https://trust.anywhere.re/
+platform: SafeBase
+scope: >-
+  IMPORTANT — this trust center is branded "Cartus Trust Center", not Anywhere Real Estate.
+  Cartus is Anywhere's global relocation and talent-mobility business and the trust center is
+  served on an anywhere.re subdomain, so it is genuinely first-party, but the certifications
+  below are scoped to Cartus. Anywhere publishes no separate trust center covering the
+  developer platform, the API gateway or the brokerage/franchise businesses.
+scope_entity: Cartus (Anywhere Real Estate relocation business)
+statement: >-
+  Verbatim - "Welcome to Cartus' Trust Center. We prioritize Information Security, Data
+  Privacy, and Compliance in every aspect of our operations. This Trust Center provides
+  transparency into our security practices and offers a centralized resource for learning
+  about our security posture."
+certifications:
+- SOC 1
+- SOC 2 Type 2
+- ISO/IEC 27001:2022
+- SOX
+- GDPR
+- EU-US Data Privacy Framework
+- Cyber Essentials
+recent_update:
+  title: 'Cartus Compliance Update: ISO/IEC 27001:2022 Certification Achieved'
+  summary: >-
+    Cartus announces achieving ISO/IEC 27001:2022 certification, described as covering its
+    information security management system for global mobility data.
+self_assessments:
+- SIG Core
+documents:
+  access: NDA-gated request flow ("Get access"); "all materials shared under NDA are confidential and intended solely for internal evaluations"
+  listed:
+  - Data Flow Diagram (DFD)
+  - SOC 2 Report
+  - 'ISO/IEC 27001:2022 certificate'
+  - SOC 2 Type 2 report
+  - SIG Core self-assessment
+  - Application Penetration Testing
+  - Network Penetration Testing
+  - Encryption Policy
+  - Information Security Policy
+  - Software Development Lifecycle Policy
+  - Vulnerability Management Policy
+  - Business Continuity Plan (BCP)
+  - Disaster Recovery Plan (DRP)
+  - Cartus Technical and Organizational Measures
+control_areas:
+- Product Security (Role-Based Access Control, SSO Support)
+- App Security (Application Penetration Testing)
+- Network Security (Network Penetration Testing)
+- Incident Response (Incident Reporting Process)
+- 'BC/DR (Business Continuity Plan, Disaster Recovery Plan, Tabletop Exercises, RTO, RPO, Data Center Risk Profile)'
+- Corporate Security (Email Protection, Employee Training, Incident Response)
+- Training (Training Program, Knowledge Base FAQ)
+vulnerability_disclosure:
+  public_program: false
+  note: >-
+    A Vulnerability Management Policy and an Incident Reporting Process are listed as
+    NDA-gated documents, but there is no public vulnerability disclosure policy, no
+    security.txt and no bug bounty program (HackerOne and Bugcrowd both probed, no Anywhere
+    or Realogy program found). No VulnerabilityDisclosure or Security pointer is emitted.
+evidence:
+- source: https://trust.anywhere.re/
+  status: 200
+  date: '2026-07-26'
+  keywords: [trust center, soc 2 type 2, soc 1, iso/iec 27001:2022, sox, gdpr, eu-us dpf, cyber essentials]
+privacy_notice: https://privacy.anywhere.re/en/global-privacy-notice
