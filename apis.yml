@@ -33,6 +33,20 @@ accessModel:
   method: observed
 image: https://developers.anywhere.re/sites/default/files/anywhere_favicon.png
 tags:
+- Real-Estate
+- United States
+- Property Listings
+- MLS
+- RESO
+- Brokerage
+- Franchising
+- PropTech
+- Title
+- Escrow
+- Relocation
+- Leads
+- Transaction
+tags_raw:
 - Real Estate
 - United States
 - Property Listings
@@ -59,6 +73,13 @@ apis:
     mlsagent, mlsagentroster, mlsofficeroster and listingsdirect-event-processing.
   humanURL: https://developers.anywhere.re/api-product/mls-data-service/summary
   tags:
+  - Real-Estate
+  - Listings
+  - MLS
+  - RESO
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - MLS
@@ -81,6 +102,14 @@ apis:
     Real Estate Standards Organization (RESO) name space convention.
   humanURL: https://developers.anywhere.re/api-product/master-data-services/summary
   tags:
+  - Real-Estate
+  - Listings
+  - MLS
+  - RESO
+  - Master Data
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - MLS
@@ -103,6 +132,13 @@ apis:
     listing and agent advertising.
   humanURL: https://developers.anywhere.re/api-product/listing-syndication/summary
   tags:
+  - Real-Estate
+  - Listings
+  - Syndication
+  - Marketing
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - Syndication
@@ -123,6 +159,12 @@ apis:
     local data store. Documented as short-response-time and typically used for mobile applications.
   humanURL: https://developers.anywhere.re/api-product/dynamic-search/summary
   tags:
+  - Real-Estate
+  - Listings
+  - Search
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - Search
@@ -142,6 +184,10 @@ apis:
     property listings with SMS Property ID, RealVitalize ID and Dash attribute management.
   humanURL: https://developers.anywhere.re/api-product/listingextensions/summary
   tags:
+  - Real-Estate
+  - Listings
+  - Franchise
+  tags_raw:
   - Real Estate
   - Listings
   - Franchise
@@ -159,6 +205,13 @@ apis:
     channels and publication lists and to flag nominated listings to publication channels.
   humanURL: https://developers.anywhere.re/api-product/property-promotions/summary
   tags:
+  - Real-Estate
+  - Listings
+  - Promotions
+  - Marketing
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - Promotions
@@ -179,6 +232,13 @@ apis:
     virtual tour views and listing views, available as soon as data is received from Anywhere source systems.
   humanURL: https://developers.anywhere.re/api-product/realogy-listings-metrics/summary
   tags:
+  - Real-Estate
+  - Listings
+  - Analytics
+  - Metrics
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Listings
   - Analytics
@@ -198,6 +258,13 @@ apis:
     Corporate Staff, Company, Office, Agent, Team, Listings and New Developments information.
   humanURL: https://developers.anywhere.re/api-product/broker-agent-tools/summary
   tags:
+  - Real-Estate
+  - Marketing
+  - Listings
+  - Back Office
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Marketing
   - Listings
@@ -218,6 +285,13 @@ apis:
     Development information.
   humanURL: https://developers.anywhere.re/api-product/broker-agent-tools-plus/summary
   tags:
+  - Real-Estate
+  - Marketing
+  - Transaction
+  - Listings
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Marketing
   - Transactions
@@ -237,6 +311,12 @@ apis:
     Income transactions and the associated buyer and seller information.
   humanURL: https://developers.anywhere.re/api-product/realogy-broker-production/summary
   tags:
+  - Real-Estate
+  - Transaction
+  - Back Office
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Transactions
   - Back Office
@@ -256,6 +336,12 @@ apis:
     platform.
   humanURL: https://developers.anywhere.re/api-product/backoffice/summary
   tags:
+  - Real-Estate
+  - Back Office
+  - Listings
+  - Transaction
+  - Franchise
+  tags_raw:
   - Real Estate
   - Back Office
   - Listings
@@ -275,6 +361,13 @@ apis:
     transaction, agent, team, office and company data.
   humanURL: https://developers.anywhere.re/api-product/realogyentitiesro/summary
   tags:
+  - Real-Estate
+  - Back Office
+  - Listings
+  - Transaction
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Back Office
   - Listings
@@ -295,6 +388,12 @@ apis:
     and query leads by Company, Agents and Teams.
   humanURL: https://developers.anywhere.re/api-product/agentcrmintegration/summary
   tags:
+  - Real-Estate
+  - Leads
+  - CRM
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Leads
   - CRM
@@ -314,6 +413,11 @@ apis:
     pending sale and final sale.
   humanURL: https://developers.anywhere.re/api-product/referralplatformv2/summary
   tags:
+  - Real-Estate
+  - Leads
+  - Referrals
+  - Franchise
+  tags_raw:
   - Real Estate
   - Leads
   - Referrals
@@ -333,6 +437,11 @@ apis:
     the transaction journey.
   humanURL: https://developers.anywhere.re/api-product/referral-partner-integration/summary
   tags:
+  - Real-Estate
+  - Leads
+  - Referrals
+  - Franchise
+  tags_raw:
   - Real Estate
   - Leads
   - Referrals
@@ -352,6 +461,13 @@ apis:
     data entry.
   humanURL: https://developers.anywhere.re/api-product/iprospect/summary
   tags:
+  - Real-Estate
+  - Recruiting
+  - Leads
+  - CRM
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Recruiting
   - Leads
@@ -373,6 +489,11 @@ apis:
     Services (AIS) Homebase.
   humanURL: https://developers.anywhere.re/api-product/c2shinningc/summary
   tags:
+  - Real-Estate
+  - Consumer
+  - Transaction
+  - Title
+  tags_raw:
   - Real Estate
   - Consumer
   - Transactions
@@ -391,6 +512,12 @@ apis:
     details.'
   humanURL: https://developers.anywhere.re/api-product/earnestmoney/summary
   tags:
+  - Real-Estate
+  - Escrow
+  - Finance
+  - Transaction
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Escrow
   - Finance
@@ -410,6 +537,11 @@ apis:
     consuming application retrieve settlement companies by filter criteria with results sorted by proximity.
   humanURL: https://developers.anywhere.re/api-product/settlement-company-capability/summary
   tags:
+  - Real-Estate
+  - Title
+  - Settlement
+  - Escrow
+  tags_raw:
   - Real Estate
   - Title
   - Settlement
@@ -429,6 +561,10 @@ apis:
     and the new Cartus file ID is returned to the client system.
   humanURL: https://developers.anywhere.re/api-product/relocationauthorization/summary
   tags:
+  - Real-Estate
+  - Relocation
+  - Cartus
+  tags_raw:
   - Real Estate
   - Relocation
   - Cartus
@@ -446,6 +582,12 @@ apis:
     enrollment information and adding or updating enrollment-related jobs, invoices and project status.
   humanURL: https://developers.anywhere.re/api-product/realvitalize-vendor-services/summary
   tags:
+  - Real-Estate
+  - Home Services
+  - Vendors
+  - Franchise
+  - Brokerage
+  tags_raw:
   - Real Estate
   - Home Services
   - Vendors
@@ -466,6 +608,11 @@ apis:
     and offices the user can reach.
   humanURL: https://developers.anywhere.re/api-product/realogy-user-access/summary
   tags:
+  - Real-Estate
+  - Identity
+  - Access Management
+  - Franchise
+  tags_raw:
   - Real Estate
   - Identity
   - Access Management
@@ -484,6 +631,13 @@ apis:
     so only the portal's own one-line summary is public.
   humanURL: https://developers.anywhere.re/api-product/anywhere-leads-engine/summary
   tags:
+  - Real-Estate
+  - Leads
+  - Routing
+  - Franchise
+  - Brokerage
+  - Digital Fabric
+  tags_raw:
   - Real Estate
   - Leads
   - Routing
