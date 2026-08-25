@@ -2,10 +2,6 @@
   "repo": "anywhere-real-estate",
   "feeds": [
     {
-      "source": "https://privacy.anywhere.re/en/feed/",
-      "error": "HTTPError"
-    },
-    {
       "source": "https://privacy.anywhere.re/en/global-privacy-notice",
       "feed_url": "https://privacy.anywhere.re/en/global-privacy-notice",
       "title": "",
@@ -14,5 +10,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-15T12:22:01Z"
+  "fetched": "2026-08-22T20:20:02Z"
 }
