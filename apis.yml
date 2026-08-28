@@ -17,6 +17,17 @@ description: 'Anywhere Real Estate Inc. (formerly Realogy Holdings Corp., NYSE: 
   Status directory. Access is licensed, not open — every specification, Postman collection and SDK page
   redirects anonymous visitors to login, and both sandbox and production access require an Anywhere review
   of up to two business days under a binding API Terms of Use and License Agreement.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: approval
