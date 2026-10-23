@@ -5,7 +5,7 @@
       "source": "https://developers.anywhere.re/get-inspired?type=blog",
       "feed_url": "https://developers.anywhere.re/rss.xml",
       "title": "",
-      "saved": 2,
+      "saved": 0,
       "method": "discovered"
     },
     {
@@ -16,6 +16,13 @@
       "method": "none"
     },
     {
+      "source": "https://developers.anywhere.re/rss.xml",
+      "feed_url": "https://developers.anywhere.re/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://privacy.anywhere.re/en/global-privacy-notice",
       "feed_url": "https://privacy.anywhere.re/en/global-privacy-notice",
       "title": "",
@@ -23,6 +30,6 @@
       "method": "none"
     }
   ],
-  "post_count": 2,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 3,
+  "fetched": "2026-10-17T14:53:57Z"
 }
